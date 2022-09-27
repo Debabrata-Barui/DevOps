@@ -1,0 +1,240 @@
+Software Configuration Management
+Or--
+Source Code Management
+* There are two things to Version Controll of Source Code Management --
+1. Local Version Control System 
+2. Centralied Versionig Control System -- SVN Subversion
+3. Distriuted Versioning Control System -- Git, Mercurial
+
+
+* Git is Invented by Linus Torvald. It is a version controll tool. 
+* Bitkiper 
+ 
+* Github - Service(Central Repository) 
+* Bitbucket - Service(Central Repository) 
+* Gitlab - Service(Central Repository)
+* Git -- Tool
+There is logically 3 secsession in git - 
+	1. Workspace/Working Directory -- Developers does regular coding here. After conding they add to the Statging Area. 
+	2. Staging Area - Here you can filter the source code file and you can commit the selected source code file to the Local Repository. 
+	3. Local Repository - Here is a option that is called master branch. We can push the source code to the Central Repository and we can pull Source code from Centeral Repository.
+
+** Commit id is 40 alphanumeric charactet. 
+
+
+
+* How to Install and Configure Git in Linux
+---------------------------------------------
+# yum update -y
+# yum install git -y
+# which git
+# git --version
+# git config --global user.name "debabrata"
+# git config --global user.email "debabrata@gail.com"
+# git config --list
+# mkdir Local Repository => Create one directory and go inside it
+# git init => To convert the directory to Local Repository  
+# vi file.txt 
+# git status => To check the status
+# git add .  => To add source code from Workspace/Working Directory to Staging Area
+# git commit -m "1st Commit from Mumbai" => To save/submit source code from Staging Area to Local Repository
+# git status 
+# git log => To check who has comitted the source code
+# git show <commit_id> => We can get commit id by git log
+
+****Push Repository to Github Central Repository****
+--------------------------------------------------------
+# git remote add origin <Central Repository Url/github repository link>
+# git push -u origin master
+Or -- 
+** How to Forcefully Push files from git to github
+-> Go to GitHub -> Settings -> Developer settings -> Personal access tokens -> Generate new token  
+-> Enter New Note
+-> Select Expiration(90 days)
+-> Select Scopes(repo)
+-> Click on Generate Token
+-> Cope the Generated Token Id(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)
+-> git remote set-url origin https://<githubtoken>@github.com/<username>/<repositoryname>.git
+# git remote set-url origin https://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@github.com/Debabrata-DevOps/DevOps.git
+# git push -f origin master  ==> To push all file from Local Repo to Central Repo
+
+****Pull Repository from Github Central Repository****
+--------------------------------------------------------
+# mkdir Local Repository => Create one directory and go inside it
+# git init
+# git remote add origin <github repository url>
+# git pull origin master => To pull from github
+# git log
+# git show <commit_id>
+Now Add Some code in the file
+# git status
+# git add . => To add file to Staging Area
+Or 
+# git add index.html => To add paricular file to Staging Area
+# git commit -m "1st Commit from Sigapore"
+# git status
+# git log
+
+** How to Forcefully Push files from git to github
+-> Go to GitHub -> Settings -> Developer settings -> Personal access tokens -> Generate new token  
+-> Enter New Note
+-> Select Expiration(90 days)
+-> Select Scopes(repo)
+-> Click on Generate Token
+-> Cope the Generated Token Id(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)
+-> git remote set-url origin https://<githubtoken>@github.com/<username>/<repositoryname>.git
+
+
+# git push -f origin master  
+# git remote set-url origin https://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@github.com/Debabrata-DevOps/DevOps.git
+
+
+
+***Git Branch *****
+----------------------
+- By Defaut branch is Master 
+- Whenever we create Repository then Master branch is aumetically created in the Local Repository.
+- We can create different sub branch from Master Branch.
+- Whenever we create a sub branch from master branch then master branch code is autometically copied to Sub Branch.
+- After Creating a Sub Branch we can write new code and commit it but it's not reflacted to the Master branch.
+- But we can marge this sub branch with the master branch then the Sub Branch's new code is autometically attached to the main branch sourch code.
+
+----------------------------
+- Each task has one branch
+- After done with code, Marge other branches with master.
+- This coceft is usefull for parallel development. 
+- Prallel Development is a process where we can create different different branch. Here all Developer writes this own code in a same time in the different different branch.
+- You can create any number of branches .
+- Changes are Personal to that Particular branch.
+- Default branch is Master Branch.
+- Files created in workspace will be visible in any of the branch workspace untill you commit. Once you commited, then that files belongs to that Particular Branch.
+- When created new branch, data of existing branch is copied to new branch.
+*** Git Marge** 
+- You can't marge branches of different repository 
+- We use pulling machanism to marge branches.
+- When same name file having different content in diffrent branches, if you do marge, Conflict(Conflict means git can't understand where to place the data) Occour(Resolve conflict then add and commit)
+- Conflict occours when you marge branches.
+
+***Git Stashing***
+As we know in workspace we can work on only one file.If suddendly require to create a new file then we have store this previous partial changes file in a temporary area, and after commit the new file we have to fetch previous partial changes file from temporary area to workspace . this tempory memory is called git stash, where we can store our partial changes files. Here all the file store in STACK manner.
+
+***Git Reset***
+After sending/adding the file from Workarea to Staging Area if we want to reset the file from Staging area we have use Git Reset Command.
+
+***Git Reset --Hard***
+After sending/adding the file from Workarea to Staging Area if we want to reset/delete the file from Staging area and as well as WorkArea then we have to use Git Reset --Hard command.
+
+------------------------------------
+
+***** Command for Git Branch*****
+# sudo su
+# git log --oneline
+# git branch => To Show Branches
+# git branch Sub_Branch1  => To create branch
+# git checkout Sub_Branch1 => To go to inside in Sub_Branch1
+# git branch -d Sub_Branch1 => To Delete Sub_Branch1
+or-- 
+# git branch -D Sub_Branch1 => To forcefully delete Sub_Branch1
+
+**To Merge  branches**
+# git checkout master
+# git merge Sub_Branch1 => To marge
+# git log --oneline => To verify the marge
+# git push origin master => to push into github central repository 
+
+**** Do Conflict**
+# git checkout master
+# cat > file.txt
+	Hi, My name is Debabrata
+	ctrl + d
+# git add .
+# git commit -m "1st commint before conflict
+
+# git checkout Sub_Branch1
+# cat > file.txt
+	I am fro West Bengal
+	ctrl+d
+# git add .
+# git commit -m "commit from Sub_Branch1"
+# git checkout master
+# git marge Sub_Branch1
+# vi file.txt ==> You can edit file.txt file
+# git status
+# git add .
+# git commit -m "Resolve Conflict"
+
+***Git Stashing***
+# git stash => To stach an items
+# git stash show => To see stashes items
+# git stash list => To see stashes items
+# git stash apply stash@{1} => To copy the file from stach area to WorkSpace.
+# git stash clear => As we know stach keep the copy of the all file so have to clear the stash area
+ 
+***Git Reset***
+git reset . => To reset all files of Staging area
+git reset file.txt => To reset only selected file
+
+***Git Reset --Hard***
+git reset --hard ==> To remove the file from Stating area as well as Working Area..
+
+
+Example- 
+ # git log --online
+ # git branch => To Show Branches  
+ # git branch Sub_Branch1  => To create branch
+ # git checkout Sub_Branch1 => To go to inside in Sub_Branch1
+ # cat > file.txt
+	A quick brown fox jumps over the lazy dog.
+	Ctrl+d
+ # ls
+ # git checkout master
+	Show all file
+ # ls 
+ # git checkout Sub_Branch1
+ # git add . 
+ # git git commit -m "1st Commit"
+ # git checkout master
+	Show all file
+ # ls
+
+
+
+***************************************************
+***Git Revart****
+- The revert command helps you undo an existing commit.
+- It does not delete any data in this process.
+- It created new commit id with previous state of file.
+
+# sudo su
+# cd Repo
+# ls
+# git status
+# cat > newFile 
+	Hi, Filenal Code for application
+# git add .
+# git commit -m "code"
+v# git log --oneline
+# git revert <commit_id>
+
+
+** How to remove untracked/unwanted files..
+# git clean -n => Dry run
+# git clean -f => Forcefully Delete
+
+
+****Git Tags*****
+- Tag operation allows giving meaningful names to a specific version in the repository.
+# git log
+# git tag -a <Tag_Name> -m <message> <Commit_Id> => To apply tag
+# git tag => To see the list of tag 
+# git show <Tag_Name> => To see particular commit content using tag
+# git tag -d <Tag_Name> => To delete a tag
+
+
+---------------------------------------------------------------
+*****Github Clone******
+- Git Clone is used to copy the repository as it is from Github Central Repository to Our Local machine.
+- Here don't need to create repository manuanlly .
+Example--
+# git clone <URL of github repo>
+
