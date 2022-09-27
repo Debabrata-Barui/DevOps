@@ -1,0 +1,18 @@
+** Maven :- Maven is a build tool, It is used to build the java application into .war file.
+
+git clone https://github.com/Debabrata-DevOps/g-timetracker.git
+cd C:\Users\DEBU\Desktop\g-timetracker
+mvn clean package
+
+Min : Hou : Day : Month : Week
+* * * * *
+
+
+*** How to buid a application in mavane
+# git clone  https://github.com/Debabrata-DevOps/spring-boot-war-example.git
+# cd  spring-boot-war-example
+# ls
+# mvn -version
+# mvn test
+# mvn install
+# cd target

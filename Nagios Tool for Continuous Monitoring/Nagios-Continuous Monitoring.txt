@@ -1,0 +1,86 @@
+		Continuous Monitoring Tool -- Nagios
+	-------------------------------------------------------
+
+There are many continuous monitoring tool available in the market --
+1. Splunk
+2. Prometheus
+3. ELK
+4. Librato
+5. ClouldWatch of AWS(Popular)
+6. Nagios
+
+Nagios ----
+Nagios is an open source software for continuous monitoring of systems, network and infrastructure. It runs plugins stored on a server which is connected with a host or another server on your network or the internet. In case of any faliure, Nagios alert about the issues so that the techinical team can perform recovery process immediately.
+
+Main Purpose for usage of  Continuous Monitoring Tool -- Nagios is reduce the downtime. 
+- NAGIOS Works on Client-Server Architecture..
+- It uses port number 5666, 5667 and 5668 to monitor its client. 
+
+** Why we need continuous monitoring ?
+=> - Faliur inside CI/CD Pipeline
+   - Application Faliur
+   - Infrastructure Faliour
+   - Analyis of Code Faliour
+
+
+** Why Nagios?
+- Detact all types of network or server issues. 
+- It Helps you to find the cause of the problem which allow you to get the parmanent solution to the problem.  
+- Reduce the server downtime 
+- Active monitoring of entire infrastructure.
+- Allow you to monitor and troubleshoot server performance issue.
+- Autometically fix problem.
+ 
+
+** Future of Nagios --
+---------------------
+- Oldest and Lastest.
+- Good log and database system .
+- Informative and attentive web interface 
+- Autometically send alert if condition changes.
+- Helps you to detect network errors or server cashes.
+- You can monitor the entire business process and IT infrastructure with a single pass.
+- Monitor network services like http, smtp, snmp, ftp, ssh, pop, dns, ldap, ipmi, etc..
+
+
+** Phase of continuous monitoring ---
+---------------------------------
+1. Define - Develop a monitoring stategy
+2. Establish - How frequently you are going to monitor it.
+3. Implement
+4. Analyze data and Repeat finding
+5. Respond
+6. Renew and Update
+
+** Nagios Architecture --
+--------------------------
+- Nagios is a client server architecture usually on a network, a nagios server is running on a host and plugins are running on all the remote host which should you monitor. 
+- All the nodes will be congtrolled by the Nagios server. 
+- All node's ip will be assigned into the nagios configuration file. Even all the rules are defined into the configuration file. 
+- In Nagios there is a tool Daemon which is used to actual services monitaring to the connected nodes through the NRPE Plugin.
+
+** NRPE - Nagios Remote Plugin Executor
+- Check-by-SSH(NRPE Agent) is installed in the node machine, by this node information gets the Daemon tool in the Nagios Server. After getting the information daemon saves in Daemon database.After that we can see this information in dashbord on wepage by https://<public_ip>/nagios
+
+
+** How does it work?
+-> Mention all details in configuration files.
+-> Daemon read those details what data to be collected.
+-> Daemon use NRPE plugin to collect data from nodes and store in its own database.
+-> Finally shows everything in dashboard.
+
+
+** Pre-request --
+----------------
+- httpd (Btower)
+- php (Dashboard)
+- gcc & gd (compiler to convert)
+- makefile (to build)
+- perl (Script)
+
+** Main configuration file --
+---------------------------
+/usr/local/nagios/etc/nagios.cfg
+
+
+

@@ -1,0 +1,7 @@
+# sudo su
+# yum update -y
+# yum install maven -y
+# mvn -version
+# mvn test  => It will be run whereever is pom.xml file is in your project and after run this command it creates a target folder
+# mvn install => To make a .war file into traget folder
+  

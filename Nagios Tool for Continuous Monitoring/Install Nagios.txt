@@ -1,0 +1,90 @@
+** Installation of Nagios on Linux ---
+------------------------------------
+- To start Nagios core installation you must have your EC2 Instance up and run and have alread configured SSH access to the instance.
+
+Step-1 --
+------	Install prerequest softwares on your EC2 machine prior to nagios installation like apache, php, gcc compiler and gd development libreries.
+
+
+# sudo su
+# yum install httpd php
+# yum install gcc glibc glibc-common
+# yum install gd gd-devel
+
+Step-2-- 
+	Create account information you need to setup a nagios uses run the following commands.
+
+# adduser -m nagios
+# passwd nagios
+# groupadd nagioscmd
+# usermod -a -G nagioscmd nagios
+# usermod -a -G nagioscmd apache
+
+Step-3 --
+-----------
+- Download nagios core and the plugins create a directory for storing the dowload.
+# mkdir ~/downloads
+# cd ~/downloads
+
+- Download the source code tarballs of both nagios and the nagios plugin
+
+# wget https://onboardcloud.dl.sourceforge.net/project/nagios/nagios-4.x/nagios-4.0.8/nagios-4.0.8.tar.gz
+# wget  http://nagios-plugins.org/download/nagios-plugins-2.0.3.tar.gz
+
+- compile and install nagios extract the nagios source code tarball
+
+# tar zxvf nagios-4.0.8.tar.gz
+# cd nagios-4.0.8
+
+- Run the configuration script with the name of the group which you have created in above step 
+# ./configure --with-command-group=nagioscmd
+
+- Complile the nagios source code
+# make all
+
+
+- Install binary files, init script, sample config files and set permission on external command directory. 
+# make install
+# make install-init
+# make install-config
+# make install-commandmode
+
+Strp-5 --
+	Configure the web interface --
+# make install-webconf
+
+Step-6
+	Create a nagiosadmin account for login into the nagios web interface set password as well -
+
+# htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+
+- Asking for password, set a new password
+# service httpd restart
+
+Step-7 
+	Compile and Install the Nagios plugins. Extract the nagios plugins source code tarball-- 
+# cd ~/downloads
+# tar zxvf nagios-plugins-2.0.3.tar.gz
+# cd nagios-plugins-2.0.3
+
+- Compile and Uninstall the plugin.
+./configure --with-nagios-user=nagios --with-nagios-group=nagios
+make
+make install
+
+Step-8
+	Start Nagios, Add Nagios to the list of system services and have it autometically start when the system boot. 
+chkconfig --add nagios
+chkconfig nagios on
+
+- Verify the simple nagios configuration file
+/usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+
+- If there are no error, start nagios
+service nagios start
+service httpd restart
+
+Step- 10
+-----------
+Copy the public ip of EC2 Instance and paste in browser in given way--
+For Eg- https://<Public_ip>/nagios
