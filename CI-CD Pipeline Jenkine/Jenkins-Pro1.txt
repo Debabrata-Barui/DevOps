@@ -1,0 +1,54 @@
+Shall Script -->
+--------------------
+** Variable -->
+# name="Debabrata"
+# echo "Name= ${name}"
+
+** Set Global Variable/Environment Variable -->
+Manage Jenkins -> Configure System -> Global Properties -> Check the Environment Variable Option -> 
+-> Name = GLOBAL_VAR
+-> Value = "Debabrata"
+
+# echo $GLOBAL_VAR
+
+** How to set Parameter / Value will be written by user
+-> Go to Project Configure -> This Project is Parameterized[Check here]
+-> Select the Data Type/Data Format.
+Like String Parameter  -->
+     -----------------   
+
+Name - Parameter_Name
+Value - Debabrat
+
+ 
+*** Timeout Job In Jenkins ---
+-----------------------------
+
+New Project -> Build Environment
+		-> Abort the build if it's stuck
+			->Set Statigy & time
+
+-> Go to build and write shell script the bellow code --
+	 
+	# sleep 240    => 240 sec = 4 min
+
+** Set the time stamp in job
+-> Build Environment
+	Check -- Add timestamp to the Console Output
+-> Go to build and write the bellow shell script 
+	# echo "This is first line"
+	# sleep 3
+	# echo "2nd Line"
+
+** Build Parallel/Concutrrent Job
+Check- Execute Concurrent build if necessary
+-> Build
+	# sleep 15
+
+** Retry Count -- We can Build a Job many times.
+
+**Throttle Build -- We can build 
+
+
+
+------------------------------------------------------------------------------------

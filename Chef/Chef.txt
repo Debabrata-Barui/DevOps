@@ -1,0 +1,335 @@
+							Configuration Management Tool
+						--------------------------------------------------
+
+
+Now Configuration Management Tool replaces to the Syatem/Server Administrator. System Admin does manage and configure the multiple servers and they are to install multiple required software, uninstall the unwanted software,Update patch file,Security Maintanence in the servers.This type of Administraton job is manually done by System Administrator. But now all this type of work is happening through aumation by DevOps Engineer. 
+There are many tools are avialable in the market to automate the Server Administration job. We can update multiple servers and install multiple software and operation system into this servers with in a minutes by this aumation tools.
+- We all are known that	
+	Dev+Ops = Development + Oeration 
+- Configuration Management Tool is the part of the Operation. 
+
+There are Two types of  Configuration Management Tool --
+			
+		Configuration Management Tool
+		.............................
+			    ||
+			    ||
+	+--------------------------------------------+
+	|					     |
+   Push Based					Pull Based 	
+Configuration Management Tool			Configuration Management Tool
+(Ex- Ansible, Saltstack)			(Ex- Chef, Puppet)
+
+* IAC (Infrastructure As Code)- Here we write a code to build a Infrastructure of Servers. That means we can do update and install Operating system in all servers by writing code. All this code we can get from github.
+
+1. Push Based Configuration Management Tool :- Here we can forcefully push the IAC code to all the servers and we can update and manage the system by this code. Here we can get all controll of the servers. It works centralised system . Example of Ansible, Saltstack..
+
+2. Pull Based Configuration Management Tool :- If we connect new client computer with the server then the client machine aumetically match his software version with server and if there is any change of server's sofware then the client aumetically will update by this Pull Based Configuration Management Tool.
+There are many Pull Based Configuration Management Tool available in the market-- Chef, Puppet...
+
+
+
+
+=======================================================================================================================================================================
+
+						Configuration Management Tool(CHEF)
+					==================================================
+
+- Chef is a company and name of a Configuration Management Tool written in Ruby and Erlang.
+- Founded by Adam Jacobs in 2009.
+- Actual name was "Marionette" later rename to chef.
+- On April 2, 2019 the chef comapany announced that all their products are open source under the Apache 2.0 Lincence.
+- Chef is used Facebook, AWD Opsworks, HP public cloud etc..
+- Chef is an administration tool whatever system admin used to do manually , now we are automating all those task by using chef..
+*  Configuration Management -- It is a method through which we automate admin task. 
+				- Configuration Management Tool turns your code into infrastructure. 
+				- So your code would be repeatable, testable and Versionable
+
+	Advantages of Configuration Management Tool --
+	- Complete Automation
+	- Increase Uptime [Increatse Server Uptime & Decrease the Server Downtime]
+	- Improve Performance
+	- Ensure Complience
+	- Prevent Error
+	- Reduce Cost
+
+
+** Chef Architecture or Process/ Chef Components --- 
+-------------------------------------------------
+1. Workstation -- Here we can write the Infrastructure code. Workstation are personal computer or virtual servers where all configuration code is created, tested or changed.	
+2.Chef-Server/Server -- Here we can upload tha code from Workstation. The Chef-Server is a middle-man between workstation and nodes.
+			- All the Cookbooks are stored here.
+			- Server may be hosted locally or remote.
+
+3. Chef-Node/Node- Here we can apply or Execute the code. Nodes are the systems that require to configuration. 
+	Node-1, Node-2, Node-3...
+
+
+Component of Chef --
+------------------
+ * Recipe :- All the Infrastructure code is written by Ruby Language in Worokstation.Here this code is called Recipe. Suppose We can give Recipe-1 for Windows Installation code and Recipe-2 for Ubuntu Installation Code.We can say recipe is the file where we can write the infrastructure code.
+ * Cookbook :- It's like folder, where can store all Recipes. It is collection of Recipe. Cookbook is exist in the Workstation as well as Chef-Server.
+ * Knife :-- Knife is command line tool that runs on workstation . It is used to upload Cookbook from Workstation to Chef-Server. It is used to establish communication among workstation, server and nodes.
+ * Bootstrap :- Bootstrap is a process. When Chef Server connects to the Nodes this process is called Bootstrap.
+ * Chef-Supermarket :- All Infrastructure Code we can get in Chef-Supermarket. We can say that, we can get Cookbook from here.
+	- Where you get custom code.
+ * Chef-Client :- Chef-Client is a tool. It runs on every Chef-Node. It is used to pull the code from the chef server. It does auto update all nodes according to the server. 
+	- It gathers current system configuration information.
+	- It Download the desired system configuration from the chef-server.
+	- It Configure the node such that it adher/according to the policy. 
+ 
+ * Ohai :- Ohai is a type of database. It is installed in the nodes. How many computer is connected with the Node(Server), Thire Password, How many sofware are installed, Which types of software are installed, there this type of all information are stored in Ohai database. We can say current configuration of node related information are stored in the Ohai database. Ohai all the information provides to Chef-Client.
+	- It Maintain current state information of chef node. 
+
+[Idempotency:- If we changes some code of 10000 line code's file and further it upload in Chef-Server. Chef-Client peek only new updated code from server to Nodes and update the existing file code, that is called Idempotency. Suppose we conside that we are well drashed but we forgot to were type, here we don't need to were new dress, only we need to were the tye. That's type of jobs are happened by chef-Client, and that is called Idempotency]
+
+ * Idempotency :- It tracking the state of system resources to ensure that the changes should not reapply Repeatedly.
+
+  
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+** Chef Workstation -- It will be install on our local computer of AWS.
+   -----------------
+	|
+	|->Cookbooks [Cookbooks is a collection of recipes and some other files and folder]
+	   ............
+		|
+		|->Test_Cookbook-1
+		|	|
+		|	|-> Recipe-1
+		|	|-> Recipe-2
+		|
+		|->Test_Cookbook-2
+			|
+			|-> Recipe-1
+			|-> Recipe-2
+
+
+** Chef-Node --
+   -------------
+	|	
+	|-> Chef-Client
+	|-> Ohai
+
+
+Cookbooks -- Cookbooks is a collection of recipes and some other files and folder]
+	Inside Cookbooks--
+Chefignore - like .gitignore
+Kitchen.yml - For testing cookbook
+Metadata.rb - name, version, user, group, others etc.. of cookbooks
+Readme.md - Information about cookbooks
+Recipe1.rb - Where you write the code
+Spec  - For Unit test the code (Seperately test to Every Module/Funtion)
+Test - For Integration Test (Full Software Test)
+		
+
+* Process to Create Cookbooks in AWS---
+   - Open AWS
+	# ec2-user
+	# sudo su
+	# yum update -y
+   	# wget https://packages.chef.io/files/stable/chef-workstation/22.7.1006/amazon/2/chef-workstation-22.7.1006-1.el7.x86_64.rpm 
+	# yum install <chef_workstation> -y
+	# which chef
+	# chef --version
+	# mkdir cookbooks -- You can't change or give another name 
+	# cd cookbooks
+	# chef generate cookbook test-cookbooks -- You can create cookbooks. You can give another name of test-cookbooks
+	# yum install tree -y -- to check the cookbook, you have to download and install tree
+	# tree -- to check the cookbooks
+	# cd test-cookbook -- Whenever we will create recipe that time we can go inside this test-cookbooks else all the work will be done from out side the test-cookbook
+	# chef generate recipe recipe-1 -- You can create recipe. You can give another name of recipe-1
+	# tree -- to show the recipe
+	# cd ..
+	# vi test-cookbooks/recipes/recipe-1.rb
+		** Enter the ruby language code--
+		*** To Install tree***
+		package 'tree' do
+		action :install
+		end			
+		
+		***To Create a file***
+		file '/myfile' do
+		content 'Welcome to Chef'
+		action :create
+		owner 'root'
+		group 'root'
+		end
+	# chef exec ruby -c test-cookbooks/recipes/recipe-1.rb --> to test the code
+	# chef-client -zr "recipe[test-cookbooks::recipe-1]" -->To call the chef client . z=Local Machine, r-Run List
+	# ls /
+	# cat recipe-1	
+				
+** Chef Server -- It will be install AWS or Another Remote Location.
+
+
+
+** Deploying an Apache Server
+-------------------------------
+# chef generate cookbook apache-cookbook
+# ls
+# cd apache-cookbook
+# chef generate recipe apache-recipe
+# tree 
+# cd ..
+# ls
+# vi apache-cookbook/recipes/apoache-recipe.rb
+	package 'httpd' do
+	action :install
+	end
+
+	file '/var/www/html/index.html' do
+	content 'Welcome to Technical Guftgu'
+	action :create
+	end
+
+
+	service 'httpd' do
+	action [:enable, :start]
+	end
+
+
+# chef exec ruby -c apache-cookbook/recipes/apoache-recipe.rb
+# chef-client -zr "recipe[apache-cookbooks::apoache-recipe]"
+-----------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+Resource:- It is the basic component of a recipe used to manage the infrastructure with different kind of states there can be multiple resources in a recipe, which will help in configuring and managing the infrastructure.
+For Ex-
+Package :- Manage the package on a node.
+Service :- Manage the services on a node.
+User :- Manage the users on the node.
+Group :- Mamages group.
+Template :- Manages the files with embedded ruby template.
+Cookbook :- Transfers the file from the files subdirectory  in the cookbook to a location on the node.
+File :- Manage the content of a file on the node.
+Execute :- Executes a command on the node 
+Cron :- Edit and existing cron file on the node.
+Directory :- Manage the directory on the node.
+-----------------------------------------------------------------------------------------------------------
+******************************************************************************************
+		Chef-Attribute
+		--------------
+** What is Chef Attribute.
+=> All the attributes stay in Ohai.
+=> Attribute is a key-vaue pair which represents a specific detail about a node.
+** Who use it?
+=> We can use it through chef-client.
+** Why we use attribute?
+=> We can check the current, previous and future state of the node using attribute.
+
+** Types of Attribute-->
+		According to priority 
+1. Default -- Low Priority	|v
+2. Force Default		|v
+3. Normal			|v	
+4. Override			|v
+5. Force Override		|v
+6. Automatic-- High Prority    	|v
+			
+	
+** Where we can define Attributes?
+=> Node
+=> Cookbook
+=> Role
+=> Environment
+
+** Priority of Attribues ==
+1. Attributes defines by ohai have the highest priority, 
+2. followed by attributes defined in a recipe, 
+3. then attriutes defined in an attribute files..
+
+******Commands*******
+# sudo su
+# ohai -- To get all information about node
+# ohai ipaddress -- To get ipaddress
+# ohai memory/total -- To get the total Memory
+# ohai cpu/o/mhz
+# ls
+# cd cookbooks/
+# tree
+# cd apache-cookbooks
+# chef generate recipe recipe-2
+# tree
+# cd ..
+# vi apache-cookbook/recipes/recipe-2
+ 
+	file '/basicinfo' do
+ 	content "This is to get Attributes
+ 	HOSTNAME: #{node['hostname']}
+ 	IPADDRESS: #{node['ipaddress']}
+ 	CPU: #{node['cpu']['0']['mhz']}
+ 	MEMORY: #{node['memory']['total']}
+	"
+ 	owner 'root'
+ 	group 'root'
+	action :create
+	end
+
+# chef exec ruby -c apache-cookbook/recipes/apoache-recipe.rb
+# chef-client -zr "recipe[apache-cookbooks::recipe2]"
+
+--------------------------------------------------------------------------------
+** How to execute linux command in chef
+
+# sodo su
+# cd cookbooks/
+# tree
+# cd apache-cookbooks
+# chef generate recipe recipe-3
+# tree
+# cd ..
+# vi apache-cookbook/recipes/recipe-3
+	
+ execute "Run Linux Script" do 	
+   command <<-EOH     --> Dash(-)= It will describe the output in different line.But if we want output in single line then we can use tild(~) symbol instead of Dash(-), EOH = End of Here
+   mkdir /NewFolder
+   touch /NewFile
+   EOH
+ end
+
+# chef exec ruby -c apache-cookbook/recipes/recipe-3.rb 
+# chef-client -zr "recipe[apache-cookbooks::recipe-3]"	
+# ls /
+
+
+----------------------------------------------------------
+** How to create user
+----------------------------------------------------------
+# sodo su
+# cd cookbooks/
+# tree
+# cd apache-cookbooks
+# chef generate recipe user
+# tree
+# cd ..
+# vi apache-cookbook/recipes/user
+	
+	user "mm0650" do
+	action :create
+	end
+
+# chef exec ruby -c apache-cookbook/recipes/user.rb 
+# chef-client -zr "recipe[apache-cookbooks::user]"	
+
+----------------------------------------------------------
+** How to create group
+----------------------------------------------------------
+# sodo su
+# cd cookbooks/
+# tree
+# cd apache-cookbooks
+# chef generate recipe group
+# tree
+# cd ..
+# vi apache-cookbook/recipes/group
+
+	group "BPM" do
+	action :create
+	members 'mm0650'
+	append true
+	end
+
+# chef exec ruby -c apache-cookbook/recipes/group.rb 
+# chef-client -zr "recipe[apache-cookbooks::group]"	
+# cat etc/group

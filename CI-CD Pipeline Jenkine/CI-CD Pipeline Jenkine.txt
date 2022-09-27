@@ -1,0 +1,244 @@
+* What is CI/CD ?--
+---------------------
+CI = Continuous Integration
+CD = Continuous Delivery/Deployment
+
+* What is CI/CD Pipeline?
+=> - Pipeline follows to FCFS(First Come First Served) Process.
+   - CI/CD is not a tool, It's a model/methodology of SDLC(Software Development Life Cycle) Model.
+   - Continuous Integration = Continuous Build + Continuous Test
+   
+
+   (1st)Developer writes the code ->(2nd) Push the code into Central Repository(Github) ->(3rd) CI Server pull this code from Github & It Builds and Test this code. If there is any error/bugs in the code, then the CI server reports to the developer to fix this error.
+
+This process is happend continuously until the full development is complted.   	
+   
+
+* CI/CD Pipeline -->
+----------------------
+Developer (Writes Code) -> Version Control(Github) -> CI Server ( Buid -> Unit Test -> Deploy -> Auto Test -> Deployment in Production Environment -> Quality Assurance(Measure & Validate) )
+
+* Developer gets the feedback from each and every stages. If the previous stage is ok then go to the next stage.
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+** Jenkins -->
+- It is the hart of the SDLC or DevOps
+- It works on CI/CD Pipeline
+- Jenkins is a Integration Tool
+- Jenkins work as a waiter. It Integrates all SDLC tools by automation.
+- Actually jenkins is CI(Continous Integration) Tool.
+- Jenkins is open source project written in java that runs on windows, macos and other unix & linux operating systems. It is free, Community Support and It has lots of plugins for every tools.
+- It works on 8080 port.
+- Jenkins automate the Software Development Life Cycle.
+- Jenkins was originaly developed by Sun Microsystem in 2004 under the name Hudson Projects.
+- It can run any major platform without any compatiblity issue.
+- Whenever developer write code, we integrate all that code of all developers at that point of time and we build, test and deliver/Deploy to the client, this process is called CI/CD.
+- Jenkins helps us to achive this. Because of CI, Now bugs will be reported fast and get rectified fast. So the entire software development happends fast. 
+
+
+** WorkFlow of Jenkins --
+------------------------
+Continuous Integration Process =>( Developer Push Code to -> Github -> Jenkin Pull the code from github -> Then Jenkins push the code to Maven tool for Build its code  -> Then Jenkin Pull the Build file from Maven tool and Push this file into Selenium tool for Testing Purpose -> After that Jenkins Pull the Tested file from Selenium and Push it to the Checkstyle tool for Quality Assurance)
+
+Continuoius Deploment/Delevary Process =>(After Completing all the process The application will be created and After that We have to Depoly/Devlivary this application to the Customere Server by the help of Jenkins tool ). 
+
+
+
+- We can attach git, Maven, Selenium and Artifactory plugins to Jenkins.
+
+[Note: Artifactory :- It is tool where we can store final code for future use/ Archiving Purpose. The deveoper updates the software from here]
+
+- Once Developer puts code in gitub, Jenkins pull that code & send to the maven for Build.
+- We can all connection with jenkins throuh plugins.
+- Once build is done, Jenkins pull that code and send to Senenium for Testing..
+- Once testing is done, then jenkins will pull that code and send to Artifactory as per requirement and so on.
+- We can also deploy with Jenkins. 
+  
+
+** Advantages of Jenkins -- 
+-------------------------
+- It has lots of plugins availabe for each and every tool to connect with jenkins.
+- You can write you own plugin
+- You can use community plugin
+- Jenkins is not just a tool, it is a framework i.e you can do whatever you want all need is plugins .
+- We can attach slaves(nodes) to jenkins master. It instruct others(Slaves) to do job. If slaves are not availabe, Jenkins itself does the job.
+- Jenkins also behave as Crone Server Replacement i.e Can do schedule task.
+- It can create label.
+
+			Master(Jenkins)
+		-------------------------------
+			      ||
+			      ||
+	----------------------------------------------	
+	|		      |			     |
+	Slove-1		   Slove-2		Slove-n...
+
+** Software Building Process --
+	Compile -> Code Review -> Unit Testing -> Integration Testing -> Packaging(War, Jar, Exe)
+
+
+
+
+** Linked Project :- Whenever many job run one by one by automatically, that is called linked project. Here all jobs are connected one by one and these are run by aumation through jenkins. 
+
+There are 2 Linked Project to connect many jobs one by one in diffrent way/approach in Jenkins --
+ 1. Upstring Linked Project - Here Admin trigars 1st job. When 1st job is completed then 1st job tells know to start to the 2nd job. And It is happed for every jobs..
+ 2. Downstring Linked Project - Here 2nd job asks to the 1st job that whether 1st job is completed or not, if 1st job is completed then 2nd job will be start.
+
+
+
+*****Plug-Ins of Jenkins******
+-------------------------------- 
+** To set restrction (plugin) - Role-based Authorization Strategy, Authorize Project
+** To Integrate MAVEN tool with jenkins (Plugins)-- Maven Integration
+** To check the build status (Plugin)-- Green Balls
+** To Build and Code Review -- NAnt Plugin, Maven Plaugin
+** To fetch code from github(github pull) --> GitHub plugin -- This plugin integrates GitHub to Jenkins
+** To Testing -- JUnit Realtime Test Reporter
+** To Deploy/Delevary -- Deploy to Container
+
+Warnings Next Generation - The Jenkins Next Generation Warnings plugin collects compiler warnings or issues reported by static analysis tools and visualizes the results. It has built-in support for more than hundred report formats. Among the problems it can detect:
+
+errors from your compiler (C, C#, Java, etc.)
+warnings from a static analysis tool (CheckStyle, StyleCop, SpotBugs, etc.)
+duplications from a copy-and-paste detector (CPD, Simian, etc.)
+vulnerabilities
+open tasks in comments of your source files
+
+NAnt -- This plugin is a NAnt Builder for building .NET projects.
+
+JUnit Realtime Test Reporter - Publishes test results while tests run, rather than waiting for completion like that JUnit plugin does.
+
+Deploy to container -- This plugin takes a war/ear file and deploys that to a running remote application server at the end of a build. The implementation is based on Cargo.
+
+
+
+** What is Cron Job?
+=> Cron job is a Automaion Process. It is defined by 5 star(* * * * *).
+  1st stra -> Every Minutes
+  2nd star -> Every Hours
+  3rd star -> Every Day
+  4th star -> Every Month
+  5th star -> Every Week
+
+If we want the Automation will be happend after every 5 minutrs --
+ */5 * * * *
+
+To Create Cron Job -> https://crontab.guru/
+
+
+** CI/CD Pipeline --
+-> Install "Build Pipeline" Plugin --This plugin provides a Build Pipeline View of upstream and downstream connected jobs that typically form a build pipeline.  In addition, it offers the ability to define manual triggers for jobs that require intervention prior to execution, e.g. an approval process outside of Jenkins.
+
+->  
+
+------------------------------------------------------------------------------------------------------------------------------------
+** Jenkins Master-Slave Node Architecture------
+--------------------------------------------
+- We can give the jobs to Jenkins-Master 
+- Then Master will distributes these jobs to the different different Jenkins-Slaves
+- Jenkins-Slave is a Java Application
+- Jenkins slaves listens the master request and after it will do this job
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+********Piple as Code**********
+---------------------------------------------------
+There are two types of Pipeline --
+	1. Scripted Pipeline
+	2. Declarative Pipeline
+	
+
+2. Declarative Pipleline
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+    }
+}
+
+
+[	
+	Section:- Agent , Stage
+	Declarative :- echo, ..
+
+In a piple line has multiple section and In a section we a defile mutiple declarative
+]		
+
+
+Example-2 of Declarative Pipeline
+---------------------------------
+
+pipeline {
+    agent any
+    environment{
+  	name = 'Debabrata'
+    }	
+    parameters{
+	string(name: "person", defaultValue: "Debabrata Barui", description: "Who are You?")
+	booleanParam(name: "isMale", defaultValue: true, description: "")
+	choice(name: "city", choices: ["Joypur", "Mumbai", "Pune"], description: "Who are You?")
+
+    }
+    stages {
+        stage('GitHub') {
+            steps {
+                git 'https://github.com/Debabrata-DevOps/SampleWebApp.git' 
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Hello World'
+                
+            }
+        }
+	stage('Command Line1') {
+            steps {
+                sh 'date'
+		sh 'pwd'
+                
+            }
+        }
+	stage('Continue ?') {
+	   input{
+		message "Should we continue?",
+		ok "Yes we should"		
+
+	   }
+	}
+	stage('Command Line2') {
+            steps {
+                sh ...
+		ls
+		date
+		pwd
+		cal 2022
+		...
+                
+            }
+        }
+	stage('Environment Variable ') {
+	    environment{
+		name2 = 'Debabrata'
+	    }
+            steps {
+                sh 'echo "${BUILD_ID}"'
+		sh 'echo "${name}"'
+		sh 'echo "${name2}"'
+		sh 'echo "${persion}"'
+                
+            }
+        }
+    }
+}
+
+

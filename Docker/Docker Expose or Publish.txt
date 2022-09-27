@@ -1,0 +1,50 @@
+** Container does not have own IP address so if we want to access the docker container from another machine via Internet then we have to expose and mapping the host port with the container port.
+After that this container will be access through host computer public IP.
+
+
+** exec vs attach
+=> These both commands are used to run the container. 
+But the difference are-
+	exec(execute) command runs the docker container in new process. When we run docker container without bin bash then we can use exec command..
+	- where as attach command runs the container in existing process . 	  
+	 
+
+
+** How to Expose Docker Port?
+--------------------------------
+-> Login into AWS Account and Create one linux instance 
+-> Now go to putty -> Login as -> ec2-user
+# sudo su
+# yum update -y
+# yum install docker -y
+# service docker start
+# docker run -td --name Container101 -p 80:80 ubuntu 	==> 	To create and run the container and host 80 port will be mapped with the container port. By using -p we can expose in globally to the host and container 80 port. 
+# docker ps ==> Show the running container
+# docker port Container1 ==> Show the expose port
+# docker exec -it Conatiner1 /bin/bash  ==> To run the container in new process
+# apt-get update
+# apt-get install apache2 -y
+# cd /var/www/html
+# echo "Subscribe Tech Guftugu" > index.html
+# service apache2 start
+
+
+
+** Difference between docker attach and docker exec?
+=> Docker exec create a new process in the container's environment while docker attach just connect the standard Input/Output of the main process inside the container to corresponding standard input/output error of the current terminal.
+- Docker exec is speacially for running new things in a already started container, be  it  a shell or some other process.
+
+
+** What is the different between expose and publish(-p) a docker?
+=> Basically you have three options:-
+	1. Neither specify expose nor -p :-
+		if you specify neither expose nor -p, the serice in the container will only be accessible from inside the container itself.
+	2. Only Specify expose :-
+		If you expose a port, the service in the container is not accessible from outside docker, but from inside our host machine how many docker conatiner are there all the docker containers can access this port.
+		# docker run -td --name Container101 expose 80:80 ubuntu
+
+	3. Specify expose and -p :-
+		If you expopse and -p a port, the source in the container is accessible from anywhere, even outside from docker.
+
+	4. If you do -p but do not expose docker does an implicit expose. This is because, If is autometically also open to the other docker containers. Hemce '-p' includes expose.
+ 

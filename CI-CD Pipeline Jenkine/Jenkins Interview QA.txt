@@ -1,0 +1,181 @@
+** What are the features of Jenkins?
+Some of the crucial features of Jenkins are the following:
+
+It is a free and open-source automation tool
+Jenkins provides a vast number of plugins
+It is easy to set up and install on multiple operating systems
+Provides pipeline support
+Fast release cycles 
+Easy upgrades
+
+
+** What is Groovy in Jenkins?
+Apache Groovy is a dynamic object-oriented programming language used as a scripting language for Java platforms. 
+Groovy is used to orchestrate the Jenkins pipeline and enables different teams to contribute to the work in different languages. 
+Groovy's syntax is very similar to that of Java, making it more seamless with the Java interface. 
+The language has several features like Java compatibility and Development support.
+
+** What is DSL Jenkins?
+DSL stands for Domain Specific Language. Jenkins job DSL is a plugin that allows us to define jobs in the programmatic form with minimal effort. You can describe your jobs in Jenkins using a Groovy Based Language. They designed Jenkins job DSL plugin to create versions of the job, manage the records
+
+** What are some of the default environmental variables in Jenkins?
+Some of the Jenkins environmental variables are:
+
+$JOB_NAME - The name that you give your job when it is first set up.
+$NODE_NAME - This is the name of the node on which the current build is running.
+$WORKSPACE - Refers to the path of the workspace
+$BUILD_URL - Indicates the URL where the results of the builds can be found.
+$JENKINS_URL - This is set to the URL of the Jenkins master that is responsible for running the build.  
+
+** How do you install Jenkins?
+Follow the steps mentioned below to install Jenkins:
+
+Install Java 
+Install Apache Tomcat Server
+Download Jenkins war File
+Deploy Jenkins war File
+
+** Top Jenkins Interview Questions and Answers for 2022
+Lesson 4 of 4By Shivam Arora
+
+Last updated on Sep 12, 2022144309
+Top Jenkins Interview Questions and Answers for 2022
+Previous
+Table of Contents
+Beginner Level Jenkins Interview QuestionsIntermediate Level Jenkins Interview QuestionsAdvance Level Jenkins Interview QuestionsConclusion
+Jenkins is one of the most sought-after tools when it comes to searching for a job in the DevOps domain. So, to help you excel in Jenkins and make sure you land in a Jenkins interview, you must give it your best shot. Here is the set of Jenkins Interview Questions that might help you meet and realize your goals.
+
+We have compiled the top 40 Jenkins interview questions beginning with the most straightforward questions, and as we progress, the level of the questions’ complexity increases.
+
+DevOps Engineer is one of the top emerging jobs of this decade. Explore the endless opportunities and get hands-on experience of working on several projects by choosing our DevOps Engineer Certification Course. Contact us and reserve your seat TODAY!
+Beginner Level Jenkins Interview Questions
+1. What is Jenkins?
+Jenkins is an open-source free automation tool used to build and test software projects. The tool makes it painless for developers to integrate changes to the project. Jenkins' primary focus is to keep track of the version control system and initiate and monitor a build system if there are any changes. It keeps an eye on the entire process and provides reports and notifications to alert.
+
+Some typical reasons as to why Jenkins is so widely used are:
+
+Developers and testers use Jenkins to detect defects in the software development lifecycle and automate the testing of builds. 
+They use it to continuously monitor the code in real-time and integrate changes into the build.
+Jenkins as it turns out, is a great fit for building a CI/CD pipeline because of its plugin-capabilities, and simple-to-use nature.
+Post Graduate Program in DevOps
+Designed in collaboration with Caltech CTMEEXPLORE COURSEPost Graduate Program in DevOps
+2. What are the features of Jenkins?
+Some of the crucial features of Jenkins are the following:
+
+It is a free and open-source automation tool
+Jenkins provides a vast number of plugins
+It is easy to set up and install on multiple operating systems
+Provides pipeline support
+Fast release cycles 
+Easy upgrades
+3. What is Groovy in Jenkins?
+Apache Groovy is a dynamic object-oriented programming language used as a scripting language for Java platforms. 
+Groovy is used to orchestrate the Jenkins pipeline and enables different teams to contribute to the work in different languages. 
+Groovy's syntax is very similar to that of Java, making it more seamless with the Java interface. 
+The language has several features like Java compatibility and Development support.
+Also Read: All You Need to Know for Choosing the First Programming Language to Learn
+
+4. How do you install Jenkins?
+Follow the steps mentioned below to install Jenkins:
+
+Install Java 
+Install Apache Tomcat Server
+Download Jenkins war File
+Deploy Jenkins war File
+5. Which commands can be used to begin Jenkins?
+Here are the commands used to start Jenkins:
+
+Open the command prompt
+After the command prompt opens, browse to the directory where Jenkins war is present
+Then run the following command:
+D:\>Java -jar Jenkins.war
+
+6. What is "Continuous Integration" with reference to Jenkins?
+Continuous Integration is a development practice where the codes can be integrated into a shared repository. 
+The practice uses automated verifications for the early detection of code problems. 
+Continuous Integration triggers the build to find and identify bugs present in the code.
+It adds consistency to the build process.
+It’s a means to build things faster and prevents broken code.
+CI
+
+** What are the differences between Continuous Integration, Continuous Delivery, and Continuous Deployment?
+
+Continuous Integration - Continuous Integration (CI) is a DevOps software development practice that permits developers to combine/merge the changes to their code in the central repository to run automated builds and tests.
+
+Continuous Delivery - Continuous Delivery (CD) refers to the building, testing, and delivering improvements to the software code. The most critical part of the CD is that the code is always in a deployable state.
+
+Continuous Deployment-- Continuous Deployment (CD) is the ultimate stage in the DevOps pipeline. It  refers to automatic release of any developer changes from the repository to the production stage. 
+
+** Name the three different types of pipelines in Jenkins?
+The three different types of Jenkins pipelines are:
+
+CI/CD pipeline 
+Scripted pipeline
+Declarative pipeline
+
+** How can you set up a Jenkins job?
+To set up a Jenkins job, you may follow these steps:
+
+Select New item from the menu
+Next, enter a name for the job and select a free-style job
+Click on OK to create a new job
+Hence, the next page that appears will allow you to configure your job.
+
+**  Name some of the useful plugins in Jenkins.
+Some of the plugins in Jenkins include:
+
+Maven 2 project
+Amazon EC2
+Copy artifact
+Join
+HTML publisher
+Green Balls
+
+** How can you create a backup and copy files in Jenkins?
+Jenkins stores all the settings, builds scripts, and logs in the home directory. 
+Then, if you want to create a backup of this Jenkins set up all you have to do is copy this directory. 
+The job directory may also be copied to clone a job or rename the directory.
+
+** What is the use of the JENKINS_HOME directory?
+JENKINS_HOME directory is the place where all the settings, logs, and configurations are stored. It stores all this information in XML files. 
+The directory contains a subdirectory for every Jenkins build job being operated. 
+Every directory has two subdirectories:  builds and workspace., and some other files as well.
+These sub directories are important, as the workspace directory is located at the place where Jenkins is building the project, and it contains the source code.
+The builds directory stores the history of all the builds performed for this job.
+
+** Explain the process in which Jenkins works?
+Here’s the process in which Jenkins works:
+
+Jenkins checks changes in repositories regularly, and developers must secure their code regularly. 
+Once the changes are defined, Jenkins detects them and uses them to prepare a new build.
+After that, Jenkins will transverse through various stages in its usual pipeline. As one stage completes, the process will move further on to the next stage.
+If a stage fails, the Jenkins build will stop there, and the software will email the team using it. When completed successfully, the code implements itself in the proper server so that testing begins.
+After the successful testing phase, Jenkins shares the results with the team using it.
+
+
+** What is Jenkinsfile? 
+Jenkins file is a text file that has a definition of a Jenkins pipeline and is checked into the source control repository. It enables code review and iteration on the pipeline. It also permits an audit trail for the pipeline.
+
+** Example automation tool?
+=> Bamboo(Commercial tool), Jenkins(Open-source tool), 
+
+	Hudson - Hudson is an extensible Continuous Integration server
+
+
+
+** Why is Jenkins used with Selenium?
+Using Selenium allows Jenkins’s testing whenever there are any software changes or any changes in the environment. When the Selenium test suite is integrated with Jenkins, the testing part is also automated as part of the build process.
+
+** Name some more continuous Integration tools other than Jenkins.
+Some of the top continuous integration tools other than Jenkins are:
+
+TeamCity
+Travis CI
+Go CD
+Bamboo
+GitLab CI
+CircleCI
+Codeship
+
+**  Differentiate between Maven, Ant.
+=> Build Tool- Maven, Ant

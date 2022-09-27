@@ -1,0 +1,230 @@
+Chef-Server => https://manage.chef.io/login
+
+Chef Server is going to be a mediator for the code or cookbooks.
+-> 1st, Create a one account in chef-server - https://manage.chef.io/login
+-> Now, Upload your cookbooks from workstation to chef-server.
+-> Now, Attach the nodes to chef-server via bootstrap process.
+-> Apply cookbook from chef server to node.
+
+Process --
+ -> Create a account in chef-server (https://manage.chef.io/login)
+ -> Go to chef account -> Create an Organization -> Stater Kit -> Download Stater Kit
+ -> Unzip Stater kit -> (chef-repo)
+
+--------------------------------------------------------------------------------------
+** How to upload/copy-paste the file from Local Windows to AWS Linux Machine
+-> Download "winscp" -- https://winscp.net/download/WinSCP-5.21.2-Setup.exe
+
+
+----------------------------------------------------------------------
+** Open centos using putty --
+Knife File Location --> # cat /home/centos/chef-repo/.chef/config.rb
+
+			# knife ssl check
+
+
+** How to upload the cookbook from Workstation to Chef-Server
+ # sudo su	
+ # cd /chef-repo/cookbooks
+ # chef generate cookbook Test_Cookbook1
+ # tree
+ # cd Test_Cookbook1
+ # chef generate recipe Recipe-1
+ # tree
+ # cd ..
+ # chef exec ruby -c Test_Cookbook1/recipe/Recipe-1.rb	=> Check the ryby syntax of Recipe-1 file
+ # knife cookbook upload Test_Cookbook1 => Upload the Test_Cookbook into chef Server 
+ # knife cookbook list => To check the cookbook list chef-server 
+
+
+--------------------------------------------------------------------------------------
++---------------------------+
+|  ** Bootstrap a Node --   |
++---------------------------+
+- Attaching a node to chef server is called bootstrap(Both workstation and node should be in same Availability Zone)
+- Now onwords, you have to be inside 'chef-repo' directory to run any command
+- Two action will be done while bootstarpping
+
+
+** How to connect node to the chef-server from workstation??------
+** Create one linux machine(Node1) in same Availability Zone of Workstation.
+=> Open AWS in Old Version Layout
+=> Create EC2 Instance
+=> In 3. Configure Instance ==>
+----------------------------
+	-> Go to Subnet => Select same Availability Zone as Workstation
+ 	-> Advanced Details =>
+	--------------------- 
+		User Data --> Paste the bellow code in the user data box ----
+		.........
+			
+			#!/bin/bash
+			sudo su
+			yum update -y
+		
+=> Now go to chef-workstation
+=> Open the chef-repo directory
+=> Paste the Node Key into the chef-repo directory
++---------------------------------------------------------------------------------------------------------------------------------------+
+| # cd /home/centos/chef-repo														|
+|																	|
+| # knife bootstrap <private_ip_of_Node1> --ssh-user <node_user_name> --sodo -i <Node private key in pem file> -N <Node_Name>		|
+|																	|
+| # knife bootstrap 172.31.18.210 --ssh-user ec2-user --sudo -i Node-Key.pem -N node1 ==> Example....					|
+|																	|
+| # knife node list --> To see the bootstraped nodes											|
++---------------------------------------------------------------------------------------------------------------------------------------+
+
+** How to apply/execute the cookbook in the Node from workstation via chef-server??
+ # sudo su	
+ # cd /chef-repo/cookbooks
+ # chef generate cookbook Test_Cookbook1
+ # tree
+ # cd Test_Cookbook1
+ # chef generate recipe Recipe-1
+ # tree
+ # cd ..
+ # chef exec ruby -c Test_Cookbook1/recipe/Recipe-1.rb	=> Check the ryby syntax of Recipe-1 file
+ # knife cookbook upload Test_Cookbook1 => Upload the Test_Cookbook into chef Server 
+ # knife cookbook list => To check the cookbook list of chef-server 
++--------------------------------------------------------------------------+
+| # knife node run_list set node1 "recipe[Test_Cookbook1::Recipe-1]"       | ==> It will store/load the particular recipe of a cookbook to the Run List of Node1 via +--------------------------------------------------------------------------+				
+										Here node1 - name of the node which is in chef server
+											Test_Cookbook1 - name of cookbook which is in chef server
+											Recipe-1 - it is the recipe which is in Test_Cookbook1 in the chef server
+							chef-server, but whenever we create new cookbookor or we create a new recipe within the existing cookbook 						                then we have to load this new cookbook or new recipe to the run_list, but if want to update recipe then 								don't need to execute this run_list command.
++-------------------------+ 
+| # knife node show node1 | ==> To see how much recipes are there in the run_list
++-------------------------+ 
+** Now we can open the AWS node1 through Putty.
+=> Execute that apache-recipe file to the node1 by entering bellow code-- 
+ # sudo su
+ # chef-client
+
+
+** What is Cron Job?
+=> Cron job is a Automaion Process. It is defined by 5 star(* * * * *).
+  1st stra -> Every Minutes
+  2nd star -> Every Hours
+  3rd star -> Every Day
+  4th star -> Every Month
+  5th star -> Every Week
+
+If we want the Automation will be happend after every 5 minutrs --
+ */5 * * * *
+
+To Create Cron Job -> https://crontab.guru/
+
+
+** How make a automation by chef tool?
+=> Now we are going to create aumation..
+    By this Automation process we can install or update every software in the node or remove every software to the node from the Workstation.
+	
+=> Now, we do not want to chef-client everytime. We want to automate this process.
+=> Go to node1---
++---------------------------------------------------+
+|	# vi /etc/crontab 			    |
+|		* * * * * root chef-client	    |
++---------------------------------------------------+
+=> Now go to chef-workstation
+	# cd /chef-repo/cookbooks
+	# vi apache-cookbook/recipes/apache-recipe.rb
+=> Now, Modify the content and save the file
+	# knife cookbook upload apache-cookbook
+=> Now, open browser & check public ip of node1
+=> You will get updated content..
+
+
+****************************************************************************************************************
+** Chef-Automation Process-2 ==>
+-------------------------------
+=> Now, We will create one more Linux Machine(node2)
+=> Open AWS in Old Version Layout
+=> Create EC2 Instance
+=> In 3. Configure Instance ==>
+----------------------------
+	-> Go to Subnet => Select same Availability Zone as Workstation
+ 	-> Advanced Details =>
+	--------------------- 
+		User Data --> Paste the bellow code in the user data box ----
+		.........
+			
+			#!/bin/bash
+			sudo su
+			yum update -y
+			echo "* * * * * root chef-client" >> /etc/crontab
+
+=> Now go to Workstation and run bootstrap command
+=> Now attach Cookbook to node run_list 
+=> Now  check in browser, node2 shows webpage..
+ 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	-----------------	
+	| Chef-Commands |
+	-----------------
+
+** To see list of cookbooks which are present in the chef server.
+ # knife cookbook list
+
+** To delete cookbook from chef server.
+ # knife cookbook delete <cookbook_nam> -y 
+
+** To see list of nodes which are present in the chef server.
+ # knife node list
+
+** To delete node from chef server.
+# knife node delete <node_name> -y
+
+** To see the list of clients which are present in the chef-server.
+ # knife client-list
+
+** To delete the client from chef server.
+ # knife client delete <client_name> -y     ==> Here node and client name will be same. Because whenever we create node, the client is automatically created according 					       to node name.
+
+** To see list of roles which are present in chef server.
+ # knife role list
+
+** To delete role from chef server.
+ # knife role delete <role_name> -y
+ 
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++---------------------+
+|	Chef-Role     |
++---------------------+
+
+Till Now, We saw that, if want to do create a new cookbook or create a new recipe within the existing recipe then we had to do store this recipe to every node's run_list, But now don't need to do same job every time, So that job we will do by automation process through chef-role..
+
+Chef-Role :- Here chef-role is automation process, or we can say it is like a Folder/directory, It is created in the Workstation and upload it to the chef-server, where we will store all cookbooks.
+After that, whenever we create new recipes or update many recipes that time do't need to use run_list for every nodes. So by the chef-role only just use run_list command once for every nodes.     
+	By default role is - stater.rb  
+
+** To Create New Role
+------------------------
+ # sudo su	
+ # cd /chef-repo/cookbooks
+ # cd roles/
+ # ls
+ # vi devops.rb
+ 	name "devops"
+	description "Web Server Role"
+	run_list "recipe[apache-cookbook::apache-recipe],recipe[test-cookbook::test-recipe]"
+	 
+ # cd ..
+ # knife role from file role/devops.rb  ==> To upload the role to the Chef-Server
+ # knife role list ==> To see the role list
+
+=> Now create two instance as node1 and node2 is same Availability Zone as of workstation.
+=> Now bootstrap the node..
+  #  knife bootstrap 172.31.18.210 --ssh-user ec2-user --sudo -i Node-Key.pem -N node1
+  #  knife bootstrap 172.31.18.211 --ssh-user ec2-user --sudo -i Node-Key.pem -N node2
+
+=> Now connect these nodes to role..
+  # kinfe node list
+  # knife node run_list set node1 "role[devops]"  ==> Connect the Role with the run_list of node1
+  # knife node run_list set node2 "role[devops]"  ==> Connect the Role with the run_list of node2
+  # knife node show node1  ==> To see the roles of node1
+  # knife cookbook upload apache-cookbook ==> To upload the cookbook into the Chef-Server form Workstation...
+
+  		

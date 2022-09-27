@@ -1,0 +1,81 @@
+** To create file -->
+file '/myfile' do
+content 'Welcome to Technical Guftgu'
+action :create
+end
+
+** To Install tree and create file
+
+package 'tree' do
+action :install
+end
+
+file '/myfile2' do
+content 'This is My Second Project code'
+action :create
+owner 'root'
+group 'root'
+end
+
+** To deploy apach e server
+-------------------------
+package 'httpd' do
+action :install
+end
+
+file '/var/www/html/index.html' do
+content 'Welcome to Technical Guftgu'
+action :create
+end
+
+
+service 'httpd' do
+action [:enable, :start]
+end
+ 
+
+** To load the node's configuration information in a file using Attributes..
+----------------------------------------------------------
+file '/basicinfo' do
+content "This is to get Attributes
+HOSTNAME: #{node['hostname']}
+IPADDRESS: #{node['ipaddress']}
+CPU: #{node['cpu']['0']['mhz']}
+MEMORY: #{node['memory']['total']}
+"
+owner 'root'
+group 'root'
+action :create
+end
+----------------------------------------------------------
+** How to execute linux command in chef
+----------------------------------------------------------
+[Note:-  Dash(-)= It will describe the output in different line.But if we want output in single line then we can use tild(~) symbol instead of Dash(-), EOH = End of Here]
+	
+execute "Run Linux Script" do 	
+ command <<-EOH  
+ mkdir /NewFolder
+ touch /NewFile
+ sudo su
+ yum install httpd -y
+ systemctl start httpd
+ echo "<h1> Hello World from $(hostname -f) </h1> " >> /var/www/html/index.html
+ EOH
+end
+
+----------------------------------------------------------
+** How to create user
+----------------------------------------------------------
+user "mm0650" do
+action :create
+end
+
+----------------------------------------------------------
+** How to create group
+----------------------------------------------------------
+group "BPM" do
+action :create
+members 'mm0650'
+append true
+end
+

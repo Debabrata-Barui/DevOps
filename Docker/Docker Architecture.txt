@@ -1,0 +1,112 @@
+Note- There is two things Container and Image.
+Image like a template.  
+While Image will be in running condition then autometically it convert to the Container.
+But whenever container will be stoped then it will be convert to the Image. This Image will be share to the Testing or Production Team. 
+- While image download from docker hub to docker engine then docker enginee stores a copy of the image for farther usage.
+
+** Advantages of Docker --
+------------------------------
+- No pre- allocation of RAM
+- CI(Continuous Integration) Efficiency- Docker enables you to build a container image and use that same image across every state of the deployment process.
+- Less cost
+- It is light in weight
+- It can run on physical hardware/ Virtual Hardware or on clude..
+- You can re-use the image
+- It takes very less time to create container.
+
+** Disadvantage/Limitation of Docker --
+--------------------------------
+- Docker is not a good solution for application that requires rich GUI.
+- Difficult to manage large amount of container.
+- Docker does not provide cross-platform compatiblity means if an application designed to run in a docker container on windows, then it can't run linux or vice varsa. 
+- Docker is sutable when the development OS and testing OS are same if OS is different, we should use Virtual Machine. 
+
+Only Support--
+	
+	Developer OS		Tester OS
+      ----------------------------------------
+	Ubuntu	---------->	Ubuntu
+	CentOS  ---------->	CentOS
+	Windows 10 --------->	Windows 10
+
+- No solution for Data Recovary & Backup
+
+
+
+** Architecture of Docker --
+----------------------------
+
+-> Developer creates a docker file to create a Image in Docker Engine/Docker Daemon.
+-> After running image it will create container.
+-> Then upload the docker file into Docker Hub or Registry
+-> In Testing side the tester pull the docker file from Docker Hub / Registry.
+
+* Docker File -- Docker file should be Layered File System. Layered File means every line will be euecuted in one by one. Here container is a Layered File System.
+ 
+
+* Docker Ecosystem -->   
+----------------------
+It is set of software or tools. ---
+
+Components of Docker -->
+------------------------
+
+1. Docker Client Tool--> Here Developer can write the code or docker file.
+	-> Docker users can interact with docker daemon/server through docker client.
+	-> Docker client uses commands and rest API to communicate with the docker daemon.
+	-> When a client runs any server command on the docker client terminal, the client terminal sends the docker command to the docker daemon. 
+	-> It is possable for docker client to communicate with more than one daemon. 
+
+2. Docker Daemon/ Docker Server/ Docker Engine --> It is used to convert the image into container.
+	-> Docker daemon runs on the host OS.
+	-> It is resposisble for running containers to manages docker services.
+	-> Docer daemon can communicate with other daemon.
+	
+ 
+3. Docker Hub/ Registry- Its like a storage. All the images are store here. 
+	-> Docker registry manages and stores the docker images.
+	-> There are Two typs of registries in the docker--
+		1. Public Registry - Public Registry is also called as docker hub.
+	
+		2. Private Registry - It is used to share images within the enterprise. 
+4. Docker Image --> Its like a template or AWS IAM. Docker image is convert to the container. 
+	-> Docker images are the read only binary templates used to create docker container.
+		or
+		---
+	-> Single file with all dependencies and configuration required to run a program.
+
+
+	** Way to create an Images -->
+	-------------------------------
+	-> Take Image from docker hub
+	-> Create Image from docker file
+	-> Create image from existing docker container.
+
+5. Docker Compose --> 
+			
+6. Docker Host --> Docker Host is used to provide an environment to execute and 
+-----------------
+run applications. It contains the docker daemon, image, containers, network and storage.
+
+
+7. Docker Conatainer -->
+	-> Container hold the entire packages that is neededto run the application
+		
+		or
+		--
+	-> In other words,  we can say that, the image is a template and the container is a copy of that template.
+ 	-> Container is like a virtual machine
+	-> Images becomes container when they run on docker machine.  
+	-> We can't modification in the Image but we can mofile the container.	
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+** Architecture of Docker/How to create container --->
+------------------------------
+Docker Hub --> Get Image into Docker Server/Daemon/Engine --> Create Container through Image --> Create a Image of Container --> Share this container image to the testing team.
+
+** Another way to create a container -->
+------------------------------------
+Create a Docker file in Docker client --> Build this docker file --> A after build this docker file, a image will be created -> After creating image you can create container through docker file.  
+
+

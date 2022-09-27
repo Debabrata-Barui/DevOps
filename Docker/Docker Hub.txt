@@ -1,0 +1,61 @@
+** To Upload the Container's Image to the docker Hub -->
+----------------------------------------------------------
+
+-> Go to AWS Account 
+-> Select Amazon Linux 
+-> Now go to putty and Login as -> ec2-user
+
+# sudo su
+# yum update -y
+# yum install docker -y
+# service docker start
+# docker run -it --name Container101 ubuntu /bin/bash
+-> Now create some file inside the Container101
+-> Now create image of the Conatiner101
+
+# docker commit Container101 image101
+
+-> Now create account in hub.docker.com
+-> Login and Verify the account through your email id
+-> Go to the Security Option
+-> Create a Access Token --
+
+-> Now to go to the ec2 instance
+
+-> Enter your user id and password
+
+# docker login -u debu12345
+Password: dckr_pat_i-TaWpcVeKTo3-rPQjlhrfq-6pA
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+
+-> Now give tag to your Image
+# docker tag image101 <docker_id>/<New_Image_Name>
+# docker push <docker_id>/<New_Image_Name>
+
+-> Now you can see this image in docker hub account
+-> Now create one EC2 Instance in another region and pull image from Docker Hub.
+
+# docker pull <docker_id>/<New_Image_Name> ==> To pull the docker Image
+# docker run -it --name <Conatiner_Name> <docker_id>/<New_Image_Name> /bin/bash
+
+----------------------------------------------------------------------------------------------------
+
+** Some Importent Commands --
+----------------------------
+-> To stop all the running container
+# docker stop $(docker ps -a -q)
+
+->Delete all stopped containers 
+# docker rm $(docker ps -a -q)
+
+-> Delete one image
+# docker rmi <Image_Name>
+
+-> Delete all images :-
+# docker rmi -f $(docker images -q)
+
+

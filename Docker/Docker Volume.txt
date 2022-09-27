@@ -1,0 +1,107 @@
+** Docker Volume ==>
+--------------------
+
+** Create Volume with Dockerfile ===>
+-----------------------------------
+
+-> Volume is simply a directory inside our container, therefore you can say it is one kind of central repository.
+-> Firstly, We have to declare this directory as a volume and then share volume.
+-> Even if we stop container, still we can access volume
+-> Volume will be created in one container
+-> You can declare a directory as a volume only while creating container. 
+-> You can't create volume from exsisting container
+-> You can share one volume across any number of container.
+-> Volume will not be included when you update an image --
+You can mapped volume in two ways--
+	1. Container <-----> Container
+	2. Host <----------> Container 
+
+
+** Benefits of Volume -->
+------------------------
+-> Decoupling container from storage, That means volume will not be deleted if we delete the volume.
+-> Share volume among diffrent container
+-> Attach volume to container
+-> On  deleting container volume does not delete.
+
+*** Creating volume from docker file
+-------------------------------------
+-> Create a docker file and write --
+	FROM ubuntu
+	VOLUME ["/myvolume1"]
+-> Then create image from this dockerfile
+# docker build -t myimage .  ==> -t is Tag
+# docker images 
+
+-> Now create image from this dockerfile
+# docker run -it --name Container1 myimage /bin/bash
+# ls
+# cd myvolume1  
+# touch file1 file2 file3 
+
+-> Now share volume(myvolume1) with another container ..
+	Container1 <------> Container2
+# docker run -it --name Container2 --privileged=true --volumes-from Container1 ubuntu /bin/bash 
+# ls
+# cd myvolume1
+# exit
+
+
+-> Open Conatiner1
+# docker start Container1
+# docker attach Container1
+# ls
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------
+
+** Create Volume using Command ==>
+-------------------------------
+-> Now, try to create volume by using command.
+
+# docker run -it --name Container3 -v /myvolume2 ubuntu /bin/bash
+# ls 
+
+-> Now create one more container, and share myvolume2
+# docker run -it --name Container4 --privileged=true --volumes-from Container3 ubuntu /bin/bash
+
+-> Lets create some file in Container3 Volume
+# cd myvolume2
+# touch file100 file102
+
+-> Now you are inside the Container4
+# ls
+# cd myvolume2 
+# ls 
+
+
+--------------------------------------------------------------------------------------------------
+** How to map the host directory with container directory ==>
+---------------------------------------------------------
+-> Verify file in /home/ec2-user/
+
+# docker run -it --name hostCont -v /home/ec2-user:/rajput --privileged=true /bin/bash ==> here /home/ec2-user is home directory location and /rajput is volume of container
+# cd rajput
+# ls
+# touch file101 ==> In Container
+# exit ==> Exit from container
+# cd /home/ec2-user/
+# cd rajput
+-----------------------------------------------------------------------------------------------------
+
+** Some other command for volume in Local Machine--
+---------------------------------------------------
+
+# docker volume ls ==> To show all volume of local machine
+# docker volume create <VolumeName> ==> To crete a single volume in Local machine
+# docker volume rm <VolumeName> ==> To remove particular volume from Local Machine
+# docker volume prune ==> It is ued to remove unused docker volume in Local Machine
+# docker volume inspact <volumeName> ==> To check the all information about volume
+# docker container inspact <containerName> ==> To check the all information about Container
+
+				    	
+

@@ -1,0 +1,32 @@
+** Jenkins Plugins
+-----------------
+1. Build Pipeline :- To make automation in job building
+	
+** Create Users in Jenkins --
+-----------------------------
+2. Role-based Authorization Strategy :-- To create a user role 
+    Go to Manage Jenkins -->
+	Go to the Security Section
+	-----------------------------
+	Go to Configure Global Security->Authentication -> 
+						Authorization-> Select- Role-Based Strategy
+
+	Go to Manage User -> Create User -> New U can create User....
+
+	Go to Manage and Assign Roles-> Manage Roles -> Role to add
+				Assign Roles -> User/group to add
+				
+
+3. Build Authorization Token Root -- It is used to buid the job from outside of jenkins by a url..
+ 			buildByToken/build?job=RevolutionTest&token=TacoTuesday
+			http://3.0.99.36:8081/jenkins/buildByToken/build?job=Pro-2&token=mypro2
+		
+	Buil a Job through Terminal :-- 
+	 # curl http://3.0.99.36:8081/jenkins/buildByToken/build\&job=Pro-2&token=mypro2
+
+
+** To make automation plugin --
+1. Build Pipeline -- To make automate build pipeline
+2. Maven Integration -- To Attach Maven Build Tool. To build java application to war & jar file
+3. Deploy to container -- 
+4. Copy Artifact -- It is used to Copy the war file to the another job..

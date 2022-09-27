@@ -1,0 +1,75 @@
+** What is Contanier ?
+=> Container is like a virtual machine. 
+
+** Virtualization:- For run a application there are required many related software which are run in bacground. These all software are required to run a particular application. Like to run a java application there are required JVM, JRE, JDK, .NET Framform and Particular OS. So if want to run this application we need to make virual machine where we can install pacticular OS and all the software which are required to run the application. So after using virtualization techniqe it is eassy to test this applicartion. After development developer push the application the tester so tester testing this application from Virtula
+
+- In Virtualization technique Hypervisor/Virtual Machine gets hardware resorce(RAM, Harddisk, Processor) from host machine. So if the host machine has 8 GB RAM and we want create 3 virtual machine which will have 2 GB RAM , it will be create but if it is also created then the host machine will have lag issues.
+So if the host machine has 8 GB RAM and we want create 3 virtual machine which will have 2 GB RAM , it will be create but if it is also created then the host machine will have lag issues. So overcome this problem we can use to Docker. 
+ 
++---------------------------------------------------+
+|	Applicaton			--->5	    |
+|						    |
+|	OS 				--->4	    |
+| 						    |
+|	Hypervisor(Virtual Machine)	--->3	    |
+|						    |
+|	OS/Karnel			--->2	    |
+|						    |
+|	Host Machine			--->1	    |
++---------------------------------------------------+
+
+** Docker Engine/Docker==> Docker Engine is a deployment tool which create this virtual machine. Docker is the company name. Docker replaces the Virtual Machine by container.
+
+- Docker was first release in march 2013. It is developed by Solomon Hykes and Sebastain Pahl.
+
+- Docker is a set of platform as a service that uses OS level virtualization whereas VMWare uses hardware level virtualization.
+- Docker is an open-source centralised platform designed to create, deploy and run applications. 
+- Docker uses container on the host OS to run application. It allows application to use the same linux kernel as a system on the host computer, rather than creating a whole virtual OS.
+- We can install docker on any OS but docker engine runs natively on linux distribution. 
+- Docker written in 'GO' Language.
+- Docker is a tool that perform OS level virtualization, also known as containerazation. But whether as VMWare uses hardware level virtualization.
+- Before docker, many users faces the problem that a particular code is ruuning in the developer's system but not in the user's system.
+
+- In Virtualization technique Hypervisor/Virtual Machine gets hardware resorce(RAM, Harddisk, Processor) from host machine. So if the host machine has 8 GB RAM and we want create 3 virtual machine which will have 2 GB RAM , it will be create but if it is also created then the host machine will have lag issues.
+So if the host machine has 8 GB RAM and we want create 3 virtual machine which will have 2 GB RAM , it will be create but if it is also created then the host machine will have lag issues. So overcome this problem we can use to Docker. 
+
+- Docker will have container. And Container will get the OS Image from Docker Hub. We konw that in docker linux runs. So 95% linux/unix file are taken from host machine and 5% files taken taken from docker hub. So overall the container will have only 5% file and that's why container is very lightweight.
++---------------------------------------------------+
+|	Application			--->6	    |
+|						    |
+|	OS Image(Some Files of OS)	--->5	    |
+|						    |
+|	Container 			--->4	    |
+| 						    |
+|	Docker				--->3	    |
+|						    |
+|	OS/Karnel			--->2	    |
+|						    |
+|	Hardware			--->1	    |
++---------------------------------------------------+
+
+
+
+** Docker Hub -- 
+
+
+
+
+** Why ruquire docker/docker engine?
+- In Virtualization technique Hypervisor/Virtual Machine gets hardware resorce(RAM, Harddisk, Processor) from host machine. So if the host machine has 8 GB RAM and we want create 3 virtual machine which will have 2 GB RAM , it will be create but if it is also created then the host machine will have lag issues.
+So if the host machine has 8 GB RAM and we want create 3 virtual machine which will have 2 GB RAM , it will be create but if it is also created then the host machine will have lag issues. So overcome this problem we can use to Docker. 
+
+- Docker will have container. And Container will get the OS Image from Docker Hub. We konw that in docker linux runs. So 95% linux/unix file are taken from host machine and 5% files taken taken from docker hub. So overall the container will have only 5% file and that's why container is very lightweight.
++---------------------------------------------------+
+|	Application			--->6	    |
+|						    |
+|	OS Image(Some Files of OS)	--->5	    |
+|						    |
+|	Container 			--->4	    |
+| 						    |
+|	Docker				--->3	    |
+|						    |
+|	OS/Karnel			--->2	    |
+|						    |
+|	Hardware			--->1	    |
++---------------------------------------------------+

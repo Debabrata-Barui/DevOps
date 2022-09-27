@@ -1,0 +1,23 @@
+****Some Importent Command for Chef Server --
+----------------------------------------------
+
+** Show the chef nodes
+# cd chef-repo
+# knife node list
+
+**Delete the node object:
+# knife node delete Node_Name
+
+** Delete the client object:
+# knife client delete Node_Name
+
+** Show the cookbook list
+#  # knife cookbook list
+
+** Delete a Single Cookbook
+# knife cookbook delete Cookbook_Name
+
+**  
+
+
+

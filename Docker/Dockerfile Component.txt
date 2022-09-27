@@ -1,0 +1,80 @@
+** Dockerfile -->
+------------- 
+-> Docker file is basically a text file it contains same set of instruction.
+-> Automation of Docker image Creation.
+
+** Docker Component ----->
+----------------------------
+
+FROM => For base image this command must be on top of the dockerfile.
+
+RUN => To execute commands, it will create a layer in image.
+
+MAINTAINER => Author/ Owner/ Description
+
+COPY => Copy file from local system(docker vm) we need to provide source, destination(We can't download file from internet and any remote repo) 
+
+
+ADD => Similar to COPY but, it provides a feature to download files from internet, also we extract file at docker image side.
+Ex- After download it will br abc.tar.gz --> after extract it will be -- abc 
+
+EXPOSE => To expose ports such as port 8080 for tomcat, port 80 for nginx etc..
+
+WORKDIR => To set working directory for a container.
+
+CMD => Exuecute commands but during container creation
+
+ENTRYPOINT => Similar to CMD, but has high priority over CMD, first command will be executed by ENTRYPOINT only. It is used to replace the word.
+
+ARG => Argument Command 
+
+ENV => Environment Variable
+
+
+--------------------------------------------------------------------------------------------------------
+** Create Dockerfile ==>
+........................
+
+-> Create a file named - Dockerfile
+-> Add instruction in Dockerfile
+-> Build dockerfile to create image
+-> Run image to create container --
+
+# vi Dockerfile
+	
+	FROM ubuntu
+	RUN echo "Technical guftgu" > /tmp/testfile
+
+-> To create image out of docker file --
+# docker build -t myimg .
+# docker images
+
+-> Now create container from the above image 
+# docker run -it --name Container3 myimg /bin/bash
+# cat /tml/testfile
+
+--------------------------------------------------------------------------------------------------------------
+
+Example -2 of Dockerfile
+-------------------------
+
+# vi Dockerfile
+  	FROM ubuntu
+  	WORKDIR /tmp
+  	RUN echo "Subscribe Technical Guptugu" > /tmp/testfile
+  	ENV envName1 Debabrata 
+  	COPY testFile1 /tmp  => Copy the test file from local machine to container
+	ADD test.tar.gz /tmp
+
+# touch testFile1
+# ls
+# touch test
+# tar -cvf test.tar test 
+# ls
+# gzip test.tar 
+# rm -rf test
+# ls
+# docker build -t newimage .   ==> To make a image file 
+# docker run -it --name newconatiner newimage /bin/bash
+# ls
+# echo envName1 

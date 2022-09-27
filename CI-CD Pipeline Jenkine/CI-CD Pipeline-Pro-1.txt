@@ -1,0 +1,20 @@
+Download, Intall and Configure ---
+1. Git - https://git-scm.com/downloads
+2. Java- Java SE Development kit 16(Win-94) - https://www.oracle.com/java/technologies/javase/jdk16-archive-downloads.html
+3. Maven - https://maven.apache.org/download.cgi
+4. Jenkins - https://www.jenkins.io/download/thank-you-downloading-windows-installer-stable/
+
+
+
+** What is Cron Job?
+=> Cron job is a Automaion Process. It is defined by 5 star(* * * * *).
+  1st stra -> Every Minutes
+  2nd star -> Every Hours
+  3rd star -> Every Day
+  4th star -> Every Month
+  5th star -> Every Week
+
+If we want the Automation will be happend after every 5 minutrs --
+ */5 * * * *
+
+To Create Cron Job -> https://crontab.guru/

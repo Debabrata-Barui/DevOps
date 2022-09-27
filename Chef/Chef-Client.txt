@@ -1,0 +1,41 @@
+** What is Conversion?
+=> We run chef-client to apply recipe to bring node into desired state. The process is known as "Conversion".
+By which we can update the node according to the server.
+
+** What is Runlist?
+=> To run the recipes in a sequence order that we mention in a run list.
+=> With the procecss , we can run multiple recipes, but the condition is, there must be only one recipe from one cookbook.
+Ex-
+ #chef-client -zr "recipe[test-cookbook::test-recipe],recipe[apache-cookbook::apache-recipe]"
+
+** How to include recipe?
+=> To call recipe/recipes from another recipe with in some cookbook.
+=> To run multiple recipes from same cookbook.
+=> Here comes the default recipe into action(you can use any recipe)
+=> We can run any number of recipes with the include command, but all must be from same cookbooks.
+Ex --
+  # vi test-cookbook/recipes/default.rb
+	
+	include_recipe "test_cookbook::test-recipe"
+	include_recipe "test_cookbook::recipe-2"
+	include_recipe "test_cookbook::recipe-3"
+
+  # chef exec ruby -c test-cookbook/recipes/default.rb
+  # chef-client -zr "recipe[test_cookbooks::default]"
+
+
+*** Now we are combining previous two concept so that we can runn multiple recipes from multiple cookbooks simultaneously.
+=> 1st, we have to include recipes into default recipe.. 
+
+ # chef-client -zr "recipe[test_cookbooks::default]"
+ # chef-client -zr "recipe[apache_cookbooks::default]"
+ # chef-client -zr "recipe[dev_cookbooks::default]"
+ # chef-client -zr "recipe[qua_cookbooks::default]"
+ # chef-client -zr "recipe[prod_cookbooks::default]"
+
+		or
+** This command only run for default recipe..
+
+ # chef-client -zr "recipe[test_cookbooks],recipe[apache_cookbooks],recipe[dev_cookbooks],recipe[qua_cookbooks],recipe[prod_cookbooks]
+
+

@@ -1,0 +1,45 @@
+**  How to create Docker Container in AWS ****
+================================================
+
+-> Login into AWS account and start your EC2 instance access it from putty.
+-> Now we have to create container from our own image.
+-> Therefore, Create one container first 
+
+# docker run -it --name Container1 ubuntu /bin/bash
+# cd tmp/
+
+-> Now create one file inside this tmp directory
+# touch myfile
+
+-> Exit from Docker
+# exit 
+
+-> Now of you want to see the difference between the base image and changes on it then
+# docker diff Container1 ==> Container1 is a Container Name 
+
+Output --->
+-----------
+C /root -- Change Directory
+A /root/.bash_history -- Appand/Addition
+D	-- Deletion
+
+Output-->
+C /tmp
+A /tmp/myFile.txt
+C /root
+A /root/.bash_history
+
+
+-> Now create image of this container ---
+----------------------------------------
+# docker commit Container1 container1image  ==> Image name must be lowercase letter
+# docker images
+
+-> Now create container from this image----
+--------------------------------------------
+# docker run -it --name Container2 container1image bin/bash
+# ls 
+# cd tmp/
+# ls
+
+

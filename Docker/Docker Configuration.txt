@@ -1,0 +1,107 @@
+** To Install Docker
+# sudo yum install -y yum-utils
+# sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+# sudo yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
+
+
+Basic Command in Docker
+-----------------------
+** Check Docker Version
+	# docker --versionn
+	# docker -v 
+** Check Docker Status
+	# systemctl status docker
+		or
+	# service docker status
+
+** Get full docker information
+	# docker info
+
+** Start the docker service
+	# service docker start
+		or
+	# systemctl start docker
+
+** Stop docker service 
+	# service docker stop
+		or
+	# systemctl stop docker	
+
+** To see all images present in your local machine/Docker Engine
+	# docker images
+
+** Here a list of images is retrieved using
+	# docker image ls
+
+** To find out images in docker hub
+	# docker search jenkins
+	# docker search ubuntu
+
+** To download image from dockerhub to local machine/Docker Engine
+	# docker pull jenkins
+	# docker pull centos
+
+
+** To Crete the new Container
+	# docker container create -i -t --name Container4  centos /bin/bash
+			OR
+	# docker container create -it --name Container4  centos /bin/bash
+
+** To run/go to the container
+	# docker container start --attach -i Container1 ==> Here Container1 is Container Name
+
+		or 
+	# docker start Container1
+	# docker attach Container1
+	
+		or
+	-------------------
+
+** To download and create and run the container ---
+--------------------------------------------------
+	Run = Download from Docker Hub + Create + Start
+   Syntax- docker run -i(interactive mode) -t(container name) conatinerName Image /bin/bash
+	# docker run -it --name bhupender ubuntu /bin/bash   
+
+    Here -- 
+		i => Interactive Mode
+		t => Conatiner Mode
+		bhupendar => Conatiner
+		ubuntu => Image
+	
+
+** To check service is start or not 
+	# service docker status
+
+** To start container
+	# docker start bhupendar ==> bhupendar is a container
+
+** To go inside container
+	# docker attach bhupendar
+
+** To see all the container
+	# docker ps -a  ==> ps- Process Status, -a = all conatiner
+
+** To see only running container
+	# docker ps	==> ps- Process Status
+
+** Show the list of container
+	# docker container ls
+
+** List the networks
+	# docker network ls
+
+** To stop container
+	# docker stop bhupendar
+
+** To delete container
+	# docker rm container1
+
+** To remove the image
+	# docker rm <ImageId>
+
+** To exit from container
+	# exit

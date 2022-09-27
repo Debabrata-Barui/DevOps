@@ -1,0 +1,71 @@
+jenkins installation
+step1:
+Updating packages in apt 
+sudo apt update
+
+step:2
+#Install Java because jenkins writtens on java
+
+sudo apt install openjdk-8-jdk
+
+step:3
+
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key |sudo gpg --dearmor -o /usr/share/keyrings/jenkins.gpg
+
+The gpg --dearmor command is used to convert the key into a format that apt recognizes.
+
+step:4
+
+Next, let’s append the Debian package repository address to the server’s sources.list:
+
+sudo sh -c 'echo deb [signed-by=/usr/share/keyrings/jenkins.gpg] http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+
+sh means shell 
+
+The [signed-by=/usr/share/keyrings/jenkins.gpg] portion of the line ensures that apt will verify files in the repository using the GPG key that you just downloaded.
+
+GPG key is used for the encryption.
+Encryption is an important way for individuals and companies to protect sensitive information
+
+step5:
+
+after installing above dependencies you need to update the apt in server
+
+sudo apt update
+
+step:6
+
+command to install jenkins
+
+sudo apt install jenkins
+
+step7:
+
+command to start jenkins
+
+sudo systemctl start jenkins.service
+
+step8:
+
+commands to check the status of jenkins
+
+sudo systemctl status jenkins
+
+step:9
+
+use browser to open jenkins
+
+
+http://44.204.156.1:8080
+
+44.204.156.1 -- use your ip
+
+step:10
+
+use these command to unlock jenkins
+
+#get Jenkins Administrator password using this command
+$ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+
+
