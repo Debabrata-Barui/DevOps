@@ -1,6 +1,6 @@
 To push the code from Ansible Server to Node there are 3 way--
 1. Ad hoc Command:- It's nothing, It is a simple linux command.
-	There si no Idempotency. Ad hoc means, Its like a temporary header teacher,Whenever in our school there head master is missing then this post is handled by another teacher like a assistance head teacher, So, this type of work is done by ad hoc command..
+	There is no Idempotency. Ad hoc means, Its like a temporary header teacher,Whenever in our school there head master is missing then this post is handled by another teacher like a assistance head teacher, So, this type of work is done by ad hoc command..
 - Ad-hoc commands are command which can be run indivisually to perform quick function.
 - These Ad-hoc command are not use for configuration management and depolyment, because these command are of one time usage.
 - The ansible ad-hoc commands uses the /usr/bin/ansible command line tool to automate a single task.
