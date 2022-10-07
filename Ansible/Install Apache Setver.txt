@@ -1,0 +1,13 @@
+--- # Install Apache Server
+ - hosts: demo
+   user: ansible
+   become: yes
+   connection: ssh
+   tasks:
+     - name: "Install httpd on RedHat"
+       command: sudo yum install httpd -y
+       when: ansible_os_family=="RedHat"
+     - name: "Install apache2 on Debian"
+       command: sudo apt-get install apache2 -y
+       when: ansible_os_family=="Debian"
+                                        

@@ -1,0 +1,20 @@
+*** Host Pattern***
+--------------------
+- 'All' pattern refers to all the machine in an inventory
+- An inventory file is also sometimes called a host file.
+- The default location for inventory is /etc/ansible/hosts. We can also create our own host file.
+
+
+# ansible all --list-hosts ==> To see all the connected nodes with Ansible-Server
+# ansible demo --list-host =>To see the demo group nodes
+
+- If want to see separate separate node
+# ansible demo[0] --list-host ==>To see the 1st node of the demo group
+# ansible demo[1] --list-host ==>To see the 2nd node of the demo group
+# ansible demo[3] --list-host ==>To see the 3rd node of the demo group
+# ansible demo[-1] --list-host ==>To see the last node of the demo group
+# ansible demo[-2] --list-host ==>To see the 2nd last node of the demo group  
+# ansible demo[2:5] --list-host ==>To see from 2nd to 5th node of the demo group
+
+- To see the duifferent group nodes
+# ansible demo[2:5]:devops[4:10] --list-host

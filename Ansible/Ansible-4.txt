@@ -1,0 +1,378 @@
+		Ansible Playbook, Variable, Handler & Loop
+		------------------------------------------
+
+- Combination of many modules is called Playbook.
+- Ansible Playbook are written in YAML format.
+- It is human readable data serialization language
+- Playbook is like a file where we write codes. 
+- It consist of variable, tasks, haldlers, files, template and roles.
+- Each playbook is composed of one or more 'modules' in a list. 
+- Module is a collection of configurations files.
+- Playbooks are devided into many secssions like --
+	Target section -- Defines the host against which playooks task has to be executed.
+			Where we want to apply the written YAML code Like- whether it is group or particular node that is declared in Target Section.
+	
+	Variable Section - Define the Variable
+	
+	Task Section - List of all module that we need to run in an Order.
+ 
+
+- In playbook we can't use tab. we can only use space to separe the word/command..
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+			YAML(Yet Another Markup Language)
+			---------------------------------
+
+- For ansible, nearly every YAML files starts with a list
+- Each item in the list is a list of key value pairs commonly called a dictionary
+- All YAML files have to begin with "---" and end with "..."
+- The YAML file extension will be -- file.yml
+- All member of a list line must begin with same identation level starting with "-"
+For Eg--
+	--- # A list of fruits
+	    fruits: 
+	    - Mango
+	      Strawberry
+	      Banana
+	      Apple
+
+- A dictionary is represented in a simple Key: Value form
+For Eg-
+	--- # Destails of customer
+	Customer:
+	   name: Debabrata
+	   job: DevOps Engineer
+	   skills: Ansible
+	   Exp: 6 Months
+
+- Extention of playbook file is .yml
+
+
+************************************************************************************
+** Create Playbook in Ansible Server
+-------------------------------------
+
+Example-1
+---------
+
+- Go to ansible server
+# su - ansible 
+
+- Now create one playbook
+# vi target.yml
+	
+	--- # Target Playbook
+	- hosts: demo		==> HostName/GroupName
+	  user: ansible		==> UserName
+	  become: yes		==> Give sudo previledge 
+	  connection: ssh	==> ssh connection
+	  gather_facts: yes	==> Job/Task
+
+# ansible-playbook target.yml --check 	  
+# ansible-playbook target.yml   
+
+
+Example-2
+----------
+--- # Playbook-1
+- hosts: all 			==> For All hosts
+  user: ansible
+  become: yes
+  connection: ssh
+  tasks:
+    - name: "create a dummy file on websever1"
+      command: echo "<h1> Hello World from $(hostname -f) </h1> " >> /var/www/html/index.html
+
+
+
+Example-3 [Running playbook with multiple tasks & multiple plays]
+------------------------------------------------------------------
+
+--- # Playbook-1
+- name: "1st Playbook"
+  hosts: demo
+  user: ansible
+  become: yes
+  connection: ssh
+  tasks:
+    - name: "create a dummy file on websever1"
+      command: touch /tmp/ansible_dummy.txt
+    - name: "Copy ansible_dummy into home file"
+      command: cp /tmp/ansible_dummy.txt /home/ansible/
+
+- name: "2nd Playbook"
+  hosts: demo
+  user: ansible
+  become: yes
+  connection: ssh
+  tasks:
+    - name: "create a foldar"
+      command: mkdir /home/ansible/Folder1
+    - name: "Copy ansible_dummy into home file"
+      command: touch /home/ansible/Folder1/Index.html
+
+	  
+
+Example-4
+---------
+# vi task.yml
+
+	--- # Target and Task Playbook
+	- hosts: demo		==> HostName
+	  user: ansible		==> UserName
+	  become: yes		==> Give sudo previledge 
+	  connection: ssh	==> ssh connection
+	  tasks: 
+		- name: Install httpd on linux
+		  action: yum name=httpd state=installed
+
+# ansible-playbook task.yml --check
+# ansible-playbook task.yml
+
+
+Example-5 [Install httpd]
+----------
+---
+- name: "3rd Playbook"
+  hosts: demo
+  user: ansible
+  become: yes
+  connection: ssh
+  tasks:
+    - name: "Install HTTPD"
+      command: sudo yum install httpd -y
+    - name: "Start HTTPD"
+      command: sudo systemctl start httpd
+    - name: "Enable HTTPD"
+      command: sudo systemctl enable httpd
+    - name: "Index.html"
+      command: echo "<h1> Hello World from $(hostname -f) </h1> " >> /var/www/html/index.html 	
+
+Example-5: Copy the file from ansible server to nodes
+-----------------------------------------------------
+--- # Copy the file from Ansible
+ - hosts: all 	
+   user: ansible
+   become: yes
+   connection: ssh
+   tasks:
+     - name: "Copy the file from ansible server to nodes"
+       copy:
+           src: file.txt
+           dest: /home/   	 
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+** Variable Section in Playbook
+--------------------------------
+- Ansible uses variables which are defined previously to enable more flexibility in playbooks amd roles. They can be used to loop through a set of given value, access various information like host name of a system and replace certain strings in template with values. 
+- Put variable section above tasks so that we define it first & use it later.
+- Now go to ansible server and create one playbook.
+
+# vi vars.yml
+
+--- # Variable Playbook
+  - hosts: demo		==> HostName	------------------------+
+    user: ansible   ==> UserName				|
+    become: yes     ==> Give sudo previledge 			|======>Target Section
+    connection: ssh ==> ssh connection--------------------------+			|
+    vars:
+          pkgname: httpd
+    tasks:
+        - name: Install httpd Server
+          action: yum name='{{pkgname}}' state=installed
+		  	
+		
+# ansible-playbook vars.yml --check
+# ansible-playbook vars.yml
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+** Handler Section
+-------------------
+A handler is exactly the same as a task, but it will run when called another task.
+		or
+Handler are just like regular task in a ansible playbook, but are only run if the task contains a notify directive and also indicate that it changed something.
+
+# vi handler.yml
+
+--- # Handler Playbook
+	- hosts: demo		==> HostName	------------------------+
+	  user: ansible		==> UserName				|
+	  become: yes		==> Give sudo previledge 		|======>Target Section
+	  connection: ssh	==> ssh connection----------------------+
+	  tasks: 
+		- name: Install httpd server
+		  action: yum name=httpd state=installed
+		  notify: restart HTTPD		==> It's a message 
+	  handlers:
+		- name: restart HTTPD		==> Notify and Handler name should be same
+		  action: service name=httpd state=restart
+
+
+------------
+** Dryrun
+-----------
+Check wether the playbook is formatted correctly.
+
+# ansible-playbook handler.yml --check
+	or
+# ansible-playbook handler.yml --syntax
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+***********************************************************************************************************************************************************************
+	
+	+-----------------------+
+	|   Loop in Ansible	|
+	+-----------------------+
+
+ 
+- Sometimes you want to repeat a task multiple times.In computer programming, this is called loops. Common ansible loops include changing Ownership on several files and/or directories with the file module, and repeating a polling step util certain rule is reached.
+
+
+
+# vi loop.yml
+
+ --- # Ansible Loop Playbook
+	- hosts: demo		==> HostName	------------------------+
+	  user: ansible		==> UserName				|
+	  become: yes		==> Give sudo previledge 		|======>Target Section
+	  connection: ssh	==> ssh connection----------------------+		
+	  tasks: 
+		- name: add a list of users
+		  user: name='{{item}}' state=present
+		  with_items:
+			- Debabrata
+			- Shantanu
+			- Subrata
+			- Satyabrata
+
+# ansible-playbook loop.yml --check
+# ansible-playbook loop.yml
+# cat /etc/passwd
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+If Else Statement of YAML in Ansible Server
+--------------------------------------------
+--- # If else statement
+  - hosts: demo
+    user: ansible
+    become: yes
+    connection: ssh
+    vars:
+        age: 21
+    tasks:
+        - name: "Debabrata"
+          command: rm -rf  /home/ansible/Debabrata.txt
+          when: age == 21
+
+        - name: "Subrata"
+          command: rm -rf  /home/ansible/Subrata.txt
+          when: age < 21
+
+        - name: "Shantanu"
+          command: rm -rf /home/ansible/Shantanu.txt
+          when: age > 21
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+Condition, Vault and Roles in Ansible
+---------------------------------------
++----------------+
+|** Condition :- |
++----------------+
+ Whenever we have different different scenarios, we put condition according to the scenarios.
+
+*** When Statement:- Sometimes you want to skip a particular command on a particular node.
+--- # Condititon Playbook
+ - hosts: demo 
+   user: ansible
+   become: yes
+   connection: ssh
+   tasks: 
+	- name: Install apache on Debian
+	  command: apt-get -y install apache2
+	  when: ansible_os_family=="Debian"
+	
+	- name: Install apache on RedHat
+	  command: yum -y install httpd
+	  when: ansible_os_family=="RedHat"  
+
++----------+
+| Vault:-  |
++----------+
+	Ansible allows keeping sensitive data such as password or keys in encrypted files, rather than a plaintext in your playbooks.
+	Vault is uesed to encrypte/password protected the Ansible playbook.
+	
+- To creating a new encrypted playbook
+	# ansible-vault create MyPlaybook1.yml
+	
+- To edit the encrypted playbook
+	# ansible-vault edit Myplaybook1.yml
+
+- To change the password
+	# ansible-vault rekey Myplaybook1.yml
+	
+- To encrypt an existing playbook
+	# ansible-vault encrypt Traget.yml
+
+- To decrypt an encrypted playbook
+	# ansible-vault decrypt MyPlaybook1.yml
+
+
+- How to execute the playbook with vault
+	# ansible-playbook MyPlaybook1.yml --ask-vault-pass  --check
+
+
+
++----------+
+| Role:-   |
++----------+
+
+- We can use two technique for reusing a set of tasks:- Includes and Roles.
+- Roles are good for orgaising tasks and encapsulating data needed to accompalish those task.
+
+- Ansible Roles :-
+	1. Default
+	2. Files
+	3. Handlers
+	4. Templates
+	5. Tasks
+	6. Vars
+
+- We can organise playbooks into a directory structure called roles.
+- Adding more and more functionality to playbooks will make it difficult to maintain in a single file.
+
+Roles :-
+   1. Default :- It stores the data about role/application default variable. Ex- If you want to run to port 80 or 8080 then variables need to define in this port.
+   2. Files :- It contains file need to be transfered to the remote VM(Static File)
+   3. Handler :- They are triggers or task. We can segregate all the handlers required in playbook.
+   4. Meta :- This directory contain files that establish roles dependences. Eg- Auther Name, Supported Platform, Dependencies if any..
+   5. Tasks :- It contans all the task that is normally in the playbook. Ex- Installing Packages, Copies File etc...
+   6. Vars :- Variables for the role can be specified in this directory and used in your configuration file.
+
+
+
+# su - ansible
+# mkdir -p playbook/roles/webserver/tasks
+# cd playbook
+# tree
+# touch master.yml
+# touch roles/webserver/tasks/main.yml 
+# vi roles/webserver/tasks/main.yml 
+		
+	- name: install httpd
+	  yum: pkg=httpd state=latest
+# vi master.yml
+	
+	- hosts: all
+	  user: ansible
+	  become: yes
+	  connection: ssh
+	  roles: 
+ 		- webserver
+
+# ansible-playbook master.yml

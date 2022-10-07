@@ -1,0 +1,28 @@
+** How to install java through ansible
+---------------------------------------
+--- #JAVA 
+ - hosts: all
+   become: yes
+   tasks:
+     - name: "Install java on RedHat"
+       yum:
+          name: java
+          state: installed
+       when: ansible_os_family=="RedHat"
+     - name: "Install java on Debian"
+       apt:
+          name: java
+          state: installed
+       when: ansible_os_family=="Debian"
+
+    - name: "Update java on RedHat"
+       yum:
+          name: java
+          state: latest
+       when: ansible_os_family=="RedHat"
+
+     - name: "Update java on Debian"
+       apt:
+          name: java
+          state: latest
+       when: ansible_os_family=="Debian"

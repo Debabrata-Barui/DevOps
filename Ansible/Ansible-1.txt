@@ -1,0 +1,129 @@
+						+----------+	
+						| Ansible  |	
+						+----------+
+
+=> Ansible is Push Based Configuration Management amnd Automation Tool.
+=> Whenever we require to install and update software that time server can push the code to the connected Node through Ansible. Thatswhy it is a Push Based Configuration Management Tool.
+=> It worked on YAML(Yet Another Markup Language) Language.
+=> RedHat Enterprise use Ansible Tower. It is a GUI tool. All the work is done by drag and drop. It is a Paid(10k/year) tool.
+=> Ansible is an Open-Source IT Configuration Management, Deployment and Orchastration Tool.
+=> Michal Dehaan developed Ansible tool in 2012.
+=> Ansible made by Python.So to use Ansible we neet to install python first.
+ 
+----------------------------- 
+** Configure Ansible in AWS
+-----------------------------
+
+- Go to AWS and create 3 EC2 Instance in same Availability Zone.
+- Take a access of all machine via putty
+- Now go to ansible server and download ansible package -------
+
+[epel- Extra packages for enterprise limit]
+
+epel package -- https://dl.fedoraproject.org/pub/epel/
+
+# wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+# ll
+# yum install epel-release-latest-7.noarch.rpm -y
+# yum update -y
+# yum install git python python-level python-pip openssl ansible -y
+# ansible --version
+- Now go to hosts file inside ansible server and paste private ip of node1 & node2
+
+# vi /etc/ansible/hosts
+
+	[group]
+	<Node-1 Private IP>
+	<Node-2 Private IP>
+
+Example- 
+	# Ex 1: Ungrouped hosts, specify before any group headers.
+	[demo]
+	172.31.94.93
+	172.31.92.142
+
+
+
+- Now hosts file is only working after updating ansible config file
+
+# vi /etc/ansible/ansible.cfg
+	uncommand--
+		inventry = /etc/ansible/hosts
+		sudo-user = root
+ 
+
+
+- Now create one user, in all the three instances 
+  ------------------------------------------------
+# adduser ansible ==> Create User
+# passwd ansible ==> To set password
+# su - ansible  ==> To swich to ansible user
+
+- This ansible user don't have sudo priviledge right now if you want to give sudo priviledge to ansible user--
+# sudo su
+# visudo   ==> To give the sudo priviledge to the ansible user
+- Now go to inside this file
+find this ---
+	root ALL=(ALL)		ALL
+add this--
+	root    ALL=(ALL)       ALL
+	ansible ALL=(ALL) NOPASSWD: ALL
+
+
+- Now go to ansible server and try to install httpd package as a ansible user
+# su - ansible
+# sudo yum install httpd -y
+
+- Login the ansible client from ansible server
+# ssh ansible@<Node1_private_ip>
+	or
+# ssh <Node1_private_ip>
+
+- Now establish connection between server and node, go to asible server
+# vi /etc/ssh/sshd-config
+** Go to Root 
+# sudo su
+# vi /etc/ssh/sshd_config
+  Uncommand--
+	PermitRootLogin no
+	PubkeyAuthentication yes
+	PasswordAuthentication yes
+	ChallengeResponseAuthentication no
+	
+	UsePAM yes
+
+  Command Out--
+	# PasswordAuthentication no
+	# GSSAPIAuthentication yes
+	# GSSAPICleanupCredentials no
+
+
+** Restart the sshd
+# systemctl restart sshd
+
+** To access the node from ansible server
+# su - ansible
+# ssh ansible@<Node1_private_ip>
+
+*****************************************************************************************************************************************
+** Trust Relationship :-
+Ansible-Server -- Public & Private Key will be generated in Ansible Server.
+		- Copy the public key into the jenkins nodes.
+
+Root --> Root
+User --> User
+
+******************************************************************************************************************************************
+------------------------------------------------------------------------------------------------------------------------------------------
+
+- Now go to Ansible Server and Create Keys(Public & Private) run this command in ansible user 
+
+# su - ansible
+# ssh-keygen
+# cd /home/ansible
+# ls -a
+# cd .ssh
+# ls
+- Now we need to copy public key in both the nodes
+# ssh-copy-id ansible@<node_private_ip>  => Copy the public key into ansible nodes
+	
