@@ -1,0 +1,5 @@
+What is Ansible Inventory?
+=> An Ansible controller needs a list of hosts and groups of hosts upon which commands, modules, and tasks are performed on the managed nodes, this list is known as inventory.
+- Ansible Inventry file is host file, where all the node's private ip is included.
+- The location of the inventry file is --
+	/etc/ansible/hosts/

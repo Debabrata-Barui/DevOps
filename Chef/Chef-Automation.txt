@@ -85,8 +85,13 @@ Knife File Location --> # cat /home/centos/chef-repo/.chef/config.rb
  # tree
  # cd ..
  # chef exec ruby -c Test_Cookbook1/recipe/Recipe-1.rb	=> Check the ryby syntax of Recipe-1 file
- # knife cookbook upload Test_Cookbook1 => Upload the Test_Cookbook into chef Server 
+
++----------------------------------------+
+| # knife cookbook upload Test_Cookbook1 |=> Upload the Test_Cookbook into chef Server 
++----------------------------------------+
+
  # knife cookbook list => To check the cookbook list of chef-server 
+
 +--------------------------------------------------------------------------+
 | # knife node run_list set node1 "recipe[Test_Cookbook1::Recipe-1]"       | ==> It will store/load the particular recipe of a cookbook to the Run List of Node1 via +--------------------------------------------------------------------------+				
 										Here node1 - name of the node which is in chef server
@@ -212,7 +217,7 @@ After that, whenever we create new recipes or update many recipes that time do't
 	run_list "recipe[apache-cookbook::apache-recipe],recipe[test-cookbook::test-recipe]"
 	 
  # cd ..
- # knife role from file role/devops.rb  ==> To upload the role to the Chef-Server
+ # knife role from file roles/devops.rb  ==> To upload the role to the Chef-Server
  # knife role list ==> To see the role list
 
 => Now create two instance as node1 and node2 is same Availability Zone as of workstation.

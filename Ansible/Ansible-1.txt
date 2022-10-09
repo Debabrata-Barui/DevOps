@@ -48,9 +48,10 @@ Example-
 
 # vi /etc/ansible/ansible.cfg
 	uncommand--
+		[default]
 		inventry = /etc/ansible/hosts
 		sudo-user = root
- 
+ 		interpreter_python = /usr/bin/python
 
 
 - Now create one user, in all the three instances 

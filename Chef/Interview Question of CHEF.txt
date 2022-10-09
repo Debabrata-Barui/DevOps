@@ -1,0 +1,95 @@
+Q1. What is Chef?
+
+It is a powerful automation platform that provides a way to transforms infrastructure into code. Chef is a tool for which you write scripts that are used to automate processes.
+
+Q2. What is a Resource in Chef?
+A Resource represents a piece of infrastructure and its desired state, such as a package that should be installed, a service that should be running, or a file that should be generated. A block of Resource can be considered as a Recipe.
+
+Q3. What is a Recipe in Chef?
+A Recipe is a collection of Resources that describes a particular configuration or policy. A Recipe describes everything that is required to configure part of a system.
+
+Q4. What is a Node in Chef?
+A Node represents a server and is typically a virtual machine, container instance, or physical server – basically any compute resource in your infrastructure that is managed by Chef.
+
+Q5. How does a Cookbook differ from a Recipe in Chef?
+A Recipe is a collection of Resources, and primarily configures a software package or some piece of infrastructure. A Cookbook groups together Recipes and other information in a way that is more manageable than having just Recipes alone.
+
+Q6. What happens when you don’t specify a Resource’s action in Chef?
+When you don’t specify a resource’s action, Chef applies the default action.
+Now explain this with an example, the below resource:
+
+file 'C:UsersAdministratorchef-reposettings.ini' do
+ content 'greeting=hello world'
+  end
+
+is same as the below resource:
+
+file 'C:UsersAdministratorchef-reposettings.ini' do
+action :create
+content 'greeting=hello world'
+end
+
+because: create is the file Resource’s default action.
+
+Q7. Are these two Chef recipes the same?
+ package 'httpd'
+ service 'httpd' do
+ action [:enable, :start]
+ end
+
+&&
+
+service 'httpd' do
+action [:enable, :start]
+end
+package 'httpd'
+
+No, they are not. Remember that Chef applies resources in the order they appear. So the first Recipe ensures that the httpd package is installed and then configures the service. The second Recipe configures the service and then ensures the package is installed.
+
+
+Q8. Write a service Resource that stops and then disables the httpd service from starting when the system boots in Chef.
+service 'httpd' do
+action [:stop, :disable]
+  end
+
+Q9. How does Chef-apply differ from Chef-client?
+Chef-apply is an executable program that runs a single Recipe from the command line. It is a part of the Chef development kit and a great way to explore resources.
+Syntax for Chef-apply is:
+	+-------------------------------+
+	|chef-apply name_of_recipe.rb	|
+	+-------------------------------+
+
+Chef-client applies a Cookbook. It is used for production purposes where you typically run Chef-client to apply one or more cookbooks.
+
+Q10. What is run-list in Chef?
+run-list lets you specify which Recipes to run, and the order in which to run them. The run-list is important when you have multiple Cookbooks, and the order in which they run matters.
+
+Q11. What information do you need in order to bootstrap in Chef?
+=> Your node’s host name or public IP address.
+=> A user name and password you can log on to your node with.
+=> Alternatively, you can use key-based authentication instead of providing a user name and password.
+
+Q12. How do you apply an updated Cookbook to your node in Chef?
+There are three ways to apply an updated Cookbook to a node you can mention all or any one, I will suggest you to mention all three:
+
+Run knife ssh from your workstation.
+SSH directly into your server and run chef-client.
+You can also run chef-client as a daemon, or service, to check in with the Chef server on a regular interval, say every 15 or 30 minutes.
+
+Q13. What is the role of Starter Kit in Chef?
+Starter Kit will create the necessary configuration files like chef directory, knife.rb, the ORGANIZATION-validator.pem, and USER.pem files etc. with the correct information that is required to interact with the Chef server.
+Now tell how to use Starter Kit, you can simply download the starter kit and then move it to the desired location on your workstation.
+
+Q14. What is the command you use to upload a cookbook to the Chef server?
+You can directly mention the command to upload a cookbook to the Chef server “knife cookbook upload”.
+
+Q15. What would you set your cookbook’s version to once it is ready to use in production?
+According to Semantic Versioning, you should set your cookbook’s version number to 1.0.0 once it is ready to use in production.
+
+Q16. What is the value of local development using Test Kitchen in Chef?
+=> Test Kitchen enables you to use a variety of virtualization providers that create virtual machine or container instances locally on your workstation or in the cloud.
+=> It enables you to run your cookbooks on servers that resemble those that you use in production.
+
+Q17. Where can you get reusable cookbooks that are written and maintained by the Chef community?
+=> You can directly answer this question by saying reusable Cookbooks are present at Chef Supermarket, https://supermarket.chef.io.
+

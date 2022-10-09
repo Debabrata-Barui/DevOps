@@ -376,3 +376,22 @@ Roles :-
  		- webserver
 
 # ansible-playbook master.yml
+
+
+[Note:- You can't change the name of the main.yml file, but you can change the name of the master.yml file
+
+Unchangable file and folders are --
+roles, tasks, main.yml
+
+]
+
+** What is Ansible Galaxy?
+Galaxy is a repository of Ansible roles that can be shared among users and can be directly dropped into playbooks for execution. It is also used for the distribution of packages containing roles, plugins, and modules also known as collection. The ansible-galaxy-collection command implements similar to init, build, install, etc like an ansible-galaxy command.
+
+Ansible galaxy is a community(https://galaxy.ansible.com/home), where we can publish our playbook. There are lots of other who uploads thire playbooks.
+Even Ansible Galaxy creates black roles.
+
+
+# ansible-galaxy init testing ==> To create black roles structure
+# ansible-galaxy search elasticsearch  --author <authername> 
+# ansible-galaxy install <name>

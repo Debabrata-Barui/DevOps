@@ -20,6 +20,8 @@ So if the host machine has 8 GB RAM and we want create 3 virtual machine which w
 
 ** Docker Engine/Docker==> Docker Engine is a deployment tool which create this virtual machine. Docker is the company name. Docker replaces the Virtual Machine by container.
 
+- Docker is a Container Engine, It is used to create container.
+
 - Docker was first release in march 2013. It is developed by Solomon Hykes and Sebastain Pahl.
 
 - Docker is a set of platform as a service that uses OS level virtualization whereas VMWare uses hardware level virtualization.

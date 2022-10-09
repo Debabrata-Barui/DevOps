@@ -1,4 +1,4 @@
-							Configuration Management Tool
+						   Configuration Management and Automation Tool
 						--------------------------------------------------
 
 
@@ -67,7 +67,7 @@ There are many Pull Based Configuration Management Tool available in the market-
 
 Component of Chef --
 ------------------
- * Recipe :- All the Infrastructure code is written by Ruby Language in Worokstation.Here this code is called Recipe. Suppose We can give Recipe-1 for Windows Installation code and Recipe-2 for Ubuntu Installation Code.We can say recipe is the file where we can write the infrastructure code.
+ * Recipe :- All the Infrastructure code is written by Ruby Language in Worokstation.Here this code is called Recipe. Suppose We can give Recipe-1 for software Installation code for  Windows and Recipe-2 for Ubuntu software installation.We can say recipe is the file where we can write the infrastructure code.
  * Cookbook :- It's like folder, where can store all Recipes. It is collection of Recipe. Cookbook is exist in the Workstation as well as Chef-Server.
  * Knife :-- Knife is command line tool that runs on workstation . It is used to upload Cookbook from Workstation to Chef-Server. It is used to establish communication among workstation, server and nodes.
  * Bootstrap :- Bootstrap is a process. When Chef Server connects to the Nodes this process is called Bootstrap.
@@ -81,7 +81,7 @@ Component of Chef --
  * Ohai :- Ohai is a type of database. It is installed in the nodes. How many computer is connected with the Node(Server), Thire Password, How many sofware are installed, Which types of software are installed, there this type of all information are stored in Ohai database. We can say current configuration of node related information are stored in the Ohai database. Ohai all the information provides to Chef-Client.
 	- It Maintain current state information of chef node. 
 
-[Idempotency:- If we changes some code of 10000 line code's file and further it upload in Chef-Server. Chef-Client peek only new updated code from server to Nodes and update the existing file code, that is called Idempotency. Suppose we conside that we are well drashed but we forgot to were type, here we don't need to were new dress, only we need to were the tye. That's type of jobs are happened by chef-Client, and that is called Idempotency]
+[Idempotency:- If we changes some code of 10000 line code's file and further it upload in Chef-Server. Chef-Client peek only new updated code from server to Nodes and update the existing file code, that is called Idempotency. Suppose we conside that we are well drashed but we forgot to were tye, here we don't need to were new dress, only we need to were the tye. That's type of jobs are happened by chef-Client, and that is called Idempotency]
 
  * Idempotency :- It tracking the state of system resources to ensure that the changes should not reapply Repeatedly.
 
@@ -189,8 +189,10 @@ Test - For Integration Test (Full Software Test)
 	end
 
 
-# chef exec ruby -c apache-cookbook/recipes/apoache-recipe.rb
-# chef-client -zr "recipe[apache-cookbooks::apoache-recipe]"
+# chef exec ruby -c apache-cookbook/recipes/apoache-recipe.rb  ==> To test the code
+# chef-client -zr "recipe[apache-cookbooks::apache-recipe]" ==> To execute the recipe
+	or
+# chef-apply recipes/Recipe101.rb ==> To execute the recipe
 -----------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------
 
